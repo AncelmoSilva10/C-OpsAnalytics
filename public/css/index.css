@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    font-family: "Rajdhani", sans-serif;
+}
+
+
+/* Parte da Navbar */
+.navbar {
+    background-color: #1A1C1E;
+    height: 80px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+#logo {
+    width: 200px;
+    height: 100px;
+}
+
+.links {
+    background-color: #1A1C1E;
+    width: 50%;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+
+}
+
+.links a {
+    text-decoration: none;
+    color: white;
+}
+
+.area_jogador {
+    background: linear-gradient(to right,
+            #FFC116 0%,
+            rgba(255, 141, 10, 0.8) 100%);
+
+    width: 20%;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.area_jogador h3 {
+
+    color: #1F2937;
+}
+
+/* Parte do Video de Bem vindo */
+.reproducao{
+    position: relative;
+    width: 100%;
+}
+
+video{
+    width: 100%;
+}
+
+#bemVindo{
+    position: absolute;
+
+    color: white;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    opacity: 0;                    /* Começa invisível */
+    animation-name: entradaSuave;    /* Nome da animação que definimos abaixo */
+    animation-duration: 1.5s;     /* Tempo que a animação dura */
+    animation-timing-function: ease-out; /* Começa rápido e termina devagar (suave) */
+    animation-delay: 0.5s;        /* Espera um pouco antes de começar */
+    animation-fill-mode: forwards;  /* Mantém o estado final (visível) após a animação */
+}
+
+#analisesTexto{
+    text-decoration: underline;
+}
+
+@keyframes entradaSuave {
+    from {
+      opacity: 0;                 
+      transform: translateY(20px); 
+    }
+    to {
+      opacity: 1;                 
+      transform: translateY(0);   /* Volta para a posição original */
+    }
+}
