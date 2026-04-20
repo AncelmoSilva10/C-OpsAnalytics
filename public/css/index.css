@@ -257,7 +257,7 @@ video {
     background-color: #1F2937;
     border: 3px solid white;
     width: 15%;
-    height: 500px;
+    height: 350px;
     border-radius: 20px;
 
     display: flex;
@@ -269,6 +269,7 @@ video {
 
 #titulo-modos {
     color: white;
+    font-size: 60px;
 }
 
 .modos img {
@@ -321,7 +322,7 @@ video {
 
 #titulo-minha-historia{
     color: white;
-    font-size: xx-large;
+    font-size: 60px;
 }
 
 .conteudo-minha-historia{
@@ -340,11 +341,11 @@ video {
 }
 
 .texto-minha-historia p {
-    font-size: large;
+    font-size: x-large;
 }
 
 .img-minha{
-    width: 30%;
+    width: 35%;
     
 }
 
@@ -375,6 +376,10 @@ video {
     align-items: center;
 }
 
+.foto-youtube img{
+    width: 80%;
+}
+
 .conteudo-identidade{
     width: 50%;
 
@@ -395,3 +400,135 @@ video {
 
     text-align: center;
 }
+
+/* Parte sobre o projeto e titulos */
+.projeto{
+    width: 100%;
+    height: 600px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.projeto-partes{
+    width: 90%;
+    height: 500px;
+    background-color: #7F96B3;
+    border: 3px solid white;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.esquerda-projeto, .direita-titulos{
+    width: 40%;
+    height: 350px;
+    background-color: #1F2937;
+    border: 2px solid white;
+    border-radius: 30px;
+
+    color: white;
+
+}
+
+/* Lado esquerdo */
+.conteudo-titulo-sobre-projeto{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.conteudo-titulo-sobre-projeto img{
+    width: 20%;
+}
+
+.conteudo-projeto{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#titulo-sobre-projeto{
+    font-size: 35px;
+}
+
+.texto-projeto p{
+    font-size: larger;
+    text-align: center;
+    padding: 5px;
+}
+
+/* Lado direito */
+.conteudo-titulos{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.conteudo-sobre-conquistas{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.conteudo-sobre-conquistas img{
+    width: 20%;
+}
+
+.texto-titulos{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.texto-titulos p{
+    font-size: larger;
+}
+
+/* Footer */
+.footer{
+    width: 100%;
+    height: 200px;
+    background-color: #383530;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.texto-footer, .icones-links-footer{
+    width: 100%;
+}
+
+.texto-footer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#texto-sptech{
+    color: #7F96B3;
+}
+
+.icones-links-footer{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+.icones-links-footer img{
+    width: 80%;
+}
+
+
