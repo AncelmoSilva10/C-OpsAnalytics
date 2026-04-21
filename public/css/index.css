@@ -183,7 +183,7 @@ video {
 .modos-jogo {
     width: 100%;
     height: 800px;
-    background-image: url('../assets/fundoModos.png');
+    background-image: url('../assets/home/fundoModos.png');
     background-size: cover;
     /*deixa a imagem ajustadas, para cobrir toda a div */
     background-position: center;
@@ -262,7 +262,7 @@ video {
 .minha-historia {
     width: 100%;
     height: 800px;
-    background-image: url('../assets/historia_sobre.png');
+    background-image: url('../assets/home/historia_sobre.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -310,7 +310,7 @@ video {
 .identidade-jogo{
     width: 100%;
     height: 800px;
-    background-image: url('../assets/identidade_sobre.png');
+    background-image: url('../assets/home/identidade_sobre.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
