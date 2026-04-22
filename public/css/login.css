@@ -127,6 +127,7 @@
             rgba(255, 141, 10, 0.8) 100%);
 
     border: 1px solid white;
+    transition: all 250ms;
 
 }
 

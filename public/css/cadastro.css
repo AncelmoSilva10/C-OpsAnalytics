@@ -127,6 +127,7 @@
 
     border: 1px solid white;
 
+    transition: all 250ms;
 }
 
 .buttao-funcao-cadastrar:hover{
