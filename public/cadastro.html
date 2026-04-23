@@ -57,7 +57,7 @@
                     <p class="texto-cadastro">ID-PLayer:</p>
                     <input type="text" id="ipt_idPLayer">
                     <p class="texto-cadastro">Quantidade de Pontos:</p>
-                    <input type="text" id="ipt_qtPOnto">
+                    <input type="text" id="ipt_qtPonto">
                     <p class="texto-cadastro">Email:</p>
                     <input type="email" id="ipt_email">
                     <p class="texto-cadastro">Senha:</p>
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="links-butao">
-                <button class="buttao-funcao-cadastrar">Cadastrar</button>
+                <button class="buttao-funcao-cadastrar" onclick="cadastrar()">Cadastrar</button>
             </div>
         </div>
     </div>
@@ -76,3 +76,22 @@
 
 </html>
 
+<script>
+
+    function cadastrar(){
+        let nick = ipt_nick.value;
+        let idPLayer = Number(ipt_idPLayer.value);
+        let qtPonto = Number(ipt_qtPonto.value);
+        let email =ipt_email.value;
+        let senha = ipt_senha.value;
+        let senhaRepetida = ipt_senhaRepetida.value;
+
+        if (nick == "" || idPLayer == "" || qtPonto == "" || email == "" || senhaRepetida == "") {
+            alert("Erro: Preencha todos os campos para prosseguir.");
+        } else {
+
+            
+        }
+    }
+
+</script>
