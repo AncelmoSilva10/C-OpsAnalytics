@@ -3,80 +3,236 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C-ops Analytics</title>
+    <!-- CSS da página e da navbar -->
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/index.css">
 
-    <title>AquaTech | Página Inicial</title>
-
-    <script src="./js/sessao.js"></script>
-
-    <link rel="stylesheet" href="./css/estilo.css">
-    <link rel="icon" href="./assets/icon/favicon2.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- Fontes pega do Google fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
-    <div class="header">
-      <div class="container">
-        <h1 class="titulo">AquaTech</h1>
-        <ul class="navbar">
-          <li class="agora">
-            <a href="#">Inicial</a>
-          </li>
-          <li>
-            <a href="simulador.html">Simulador</a>
-          </li>
-          <li>|</li>
-          <li>
-            <a href="login.html">Login</a>
-          </li>
-          <li>
-            <a href="cadastro.html">Cadastro</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  
-    <div class="banner">
-      <div class="container">
-        <p>Preservando <span>hoje</span> para existirem <span>amanhã</span>.</p>
-      </div>
-    </div>
-  
-    <div class="social">
-      <div class="container">
-        <div class="boxes">
-          <div class="box">
-            <img src="assets/imgs/planet-earth_color.png">
-            <h4>Missão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/lightbulb_color.png">
-            <h4>Visão</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
-          <div class="box">
-            <img src="assets/imgs/growth_color.png">
-            <h4>Valores</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, quas cupiditate asperiores provident magnam
-              vitae illum iusto fugiat atque deleniti nulla sed iure suscipit, laborum, aliquid accusantium cum dicta
-              minima.</p>
-          </div>
+
+    <!-- Navbar com Logo e Link -->
+    <div class="navbar">
+        <img src="assets/home/logo-white.png" alt="" id="logo">
+        <div class="links">
+            <a href="index.html">
+                <span>Inicio</span>
+            </a>
+            <a href="#secao-historia">
+                <span>Sobre o Jogo</span>
+            </a>
+            <a href="#secao-modos">
+                <span>Mapas e Modos</span>
+            </a>
+            <a href="#secao-projeto">
+                <span>Sobre o Projeto</span>
+            </a>
+            <div class="area_jogador">
+                <a href="login.html">
+                    <h3>Área do Jogador</h3>
+                </a>
+            </div>
         </div>
-      </div>
     </div>
-  
+
+    <!-- Video do Banner -->
+    <div id="reproducao">
+        <video autoplay loop muted>
+            <source src="assets/home/videoCops.mp4" type="video/mp4">
+        </video>
+        <h1 id="bemVindo">Seja bem vindo ao Critical Ops <span id="analisesTexto"> Analytics</span></h1>
+    </div>
+
+    <!-- Banner de Critical ops -->
+    <div class="banner-cops">
+        <img src="assets/home/bannerCops.png" alt="">
+    </div>
+
+    <!-- Conteúdo da História do Critical Ops -->
+    <div class="historia-cops" id="secao-historia">
+        <img src="assets/home/tituloCops.png" alt="">
+        <div class="conteudo-historia">
+            <div class="imgHistoria">
+                <img src="assets/home/fotoAntiga.png" alt="">
+                <h3 id="descricao">Foto de 2015</h3>
+            </div>
+            <div class="texto-historia">
+                <h1 id="titulo-hitoria">História e Origem</h1>
+                <p>Critical Ops (comumente abreviado como C-OPS ) é um jogo de tiro tático em primeira pessoa
+                    desenvolvido pela Critical Force Entertainment e funciona como sequência e sucessor de Critical
+                    Strike Portable. Foi lançado inicialmente em 14 de agosto de 2015 na versão para navegador do
+                    Facebook, mas posteriormente migrou para o Facebook Gameroom em 30 de agosto de 2016. Foi
+                    lançado em 30 de setembro de 2015 para o Google Play.O lançamento oficial para a App Store
+                    foi realizado em versão beta para alguns países em 2 de maio de 2016.O jogo também foi
+                    lançado em 30 de junho de 2017 para a Amazon.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desenvolvimento do Jogo -->
+    <div class="desenvolvimento-jogo" id="secao-desenvolvimento">
+        <div class="conteudo-desevolvimento">
+            <div class="texto-desenvolvimento">
+                <h1 id="titulo-desenvolvimento">Desenvolvimento e Cenário do jogo</h1>
+                <p>O Critical Ops nasceu com o intuito de retratar a essência do Counter-Strike nos dispositivos móveis,
+                    mas logo evoluiu para uma proposta única: tornar-se a experiência de FPS mais acessível e
+                    desafiadora do cenário mobile. Ao equilibrar controles intuitivos com uma jogabilidade que exige
+                    técnica apurada, ele se tornou a maior representação competitiva para smartphones. Mais do que um
+                    clone de PC, o jogo estabeleceu um ecossistema próprio de e-sports, onde a precisão tática e o
+                    reflexo rápido provam que o cenário mobile é tão sério e recompensador quanto qualquer outra
+                    plataforma.</p>
+            </div>
+            <div class="video-desenvolvimento">
+                <video autoplay loop muted>
+                    <source src="assets/home/meuVideo.mp4" type="video/mp4">
+                </video>
+                <h3 id="descricao">Video de 2025</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Principais modos de Jogo -->
+    <div class="modos-jogo" id="secao-modos">
+        <div class="titulo">
+            <h1 id="titulo-modos">Principais Modos de jogo</h1>
+        </div>
+        <div class="opcoes-modos">
+            <div class="modos">
+                <img src="assets/home/defuse.png" alt="">
+                <div class="texto-modos">
+                    <h2 id="titulo-modo">Defuse</h2>
+                    <p>Desarme ou proteja a bomba em partidas táticas 5v5. Comunicação e estratégia são a chave para a
+                        vitória.</p>
+                </div>
+            </div>
+            <div class="modos">
+                <img src="assets/home/ranked.png" alt="">
+                <div class="texto-modos">
+                    <h2 id="titulo-modo">Ranked</h2>
+                    <p>Suba de patente enfrentando jogadores do seu nível. Mostre sua habilidade e conquiste o topo do
+                        competitivo.</p>
+                </div>
+            </div>
+            <div class="modos">
+                <img src="assets/home/deathmatch.png" alt="">
+                <div class="texto-modos">
+                    <h2 id="titulo-modo">DeathMatch</h2>
+                    <p>Ação intensa sem parar. Elimine o máximo de inimigos e teste sua mira em combates rápidos.</p>
+                </div>
+            </div>
+        </div>
+        <div class="butao-mapas">
+            <a href="mapas.html"><button id="maps">Conhecer os Maps</button></a>
+        </div>
+    </div>
+
+    <!-- Minha História no Jogo -->
+    <div class="minha-historia" id="secao-minhaHistoria">
+        <div class="titulo">
+            <h1 id="titulo-minha-historia">Minha História no Jogo</h1>
+        </div>
+        <div class="conteudo-minha-historia">
+            <div class="texto-minha-historia">
+                <h1>Onde tudo começou</h1>
+                <p>Sabe aquele momento em que algo simples muda completamente sua rotina? Para mim, isso aconteceu aos
+                    10 anos. Naquela época, meu mundo era o Minecraft Mobile (MCPE). Eu passava alguns momentos livres
+                    assistindo
+                    criadores como o yLexS2, mas um vídeo específico dele me apresentou algo novo: o Critical Ops.
+                    Não foi somente gráficos, foi ver que toda aquela galera que eu já admirava no Minecraft estava ali,
+                    jogando em equipe, criando estratégias e competindo. Quando baixei o jogo pela primeira vez, não
+                    imaginava que ele se tornaria uma parte tão grande da minha vida.</p>
+            </div>
+            <div class="img-minha">
+                <img src="assets/home/minha-foto.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!-- Idendidade no Jogo -->
+    <div class="identidade-jogo" id="secao-identidade">
+        <div class="foto-youtube">
+            <img src="assets/home/canalYoutube.png" alt="">
+        </div>
+        <div class="conteudo-identidade">
+            <h1 id="titulo-identidade">Mais que um Nick, uma Identidade</h1>
+            <div class="texto-identidade">
+                <p>Eu me apaixonei pelo processo de melhorar. Cada treino, cada partida e cada nova amizade me moldaram
+                    como jogador. E foi nessa jornada que ganhei o nome que carrego com carinho: Stylish.
+                    O apelido veio do meu amigo Alvaro. Eu sempre tive um cuidado especial com as minhas skins e gostava
+                    de deixar tudo com a minha cara, com o meu estilo. Ele começou a me chamar assim e, de repente, eu
+                    não era mais só um jogador comum, eu era o Stylish.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sobre o Projeto e titulos -->
+
+    <div class="projeto" id="secao-projeto">
+        <div class="projeto-partes">
+            <div class="esquerda-projeto">
+                <div class="conteudo-projeto">
+                    <div class="conteudo-titulo-sobre-projeto">
+                        <h1 id="titulo-sobre-projeto">O Coração do Projeto</h1>
+                        <img src="assets/home/coracao.png" alt="">
+                    </div>
+                    <div class="texto-projeto">
+                        <p>Ao longo dos anos, o C-Ops deixou de ser apenas um passatempo. Construí uma história real
+                            ali:
+                            participei de campeonatos, postei meus primeiros vídeos e, principalmente, fiz amizades que
+                            o
+                            tempo não apaga.
+                            Este projeto que você vê aqui é o reflexo dessa trajetória. É onde guardo cada vitória, cada
+                            aprendizado e a memória daquela criança de 10 anos que só queria jogar com os amigos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="direita-titulos">
+                <div class="conteudo-titulos">
+                    <div class="conteudo-sobre-conquistas">
+                        <h1 id="titulo-sobre-conquistas">Stylish Achivements</h1>
+                        <img src="assets/home/trofeu.png" alt="">
+                    </div>
+                    <div class="texto-titulos">
+                        <p>6x Polaris Champions</p>
+                        <p>2x MVP Polaris Champions</p>
+                        <p>World Critical Ops: Top 16 & Top 32</p>
+                        <p>Pro League: Round 8 & Round 16</p>
+                        <p>Circuit S2: Round 16</p>
+                        <p>Circuit S3: ROUND 16</p>
+                        <p>Circuit S4: Round 4</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer, o rodapé -->
     <div class="footer">
-      <div class="container">
-        <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-        <span class="version">v1.0.0</span>
-      </div>
+        <div class="texto-footer">
+            <h1>Se interessou? Faça download!</h1>
+            <h2>Projeto dedicado a Matéria de Pesquisa e Inovação - <span id="texto-sptech">SPTECH</span></h2>
+        </div>
+        <div class="icones-links-footer">
+            <div class="icones">
+                <a href="https://apps.apple.com/br/app/critical-ops-online-pvp-fps/id1017717218"><img src="assets/home/appstore.png" alt=""></a>
+            </div>
+            <div class="icones">
+                <a href="https://play.google.com/store/apps/details?id=com.criticalforceentertainment.criticalops&hl=pt_BR&pli=1"><img src="assets/home/playstore.png" alt=""></a>
+            </div>
+            <div class="icones">
+                <a href="https://www.amazon.com/Critical-Force-Oy-Ops/dp/B072XRYQL1"><img src="assets/home/amazonapp.png" alt=""></a>
+            </div>
+        </div>
     </div>
-  </body>
+
+
+</body>
 
 </html>
