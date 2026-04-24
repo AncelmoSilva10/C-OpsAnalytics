@@ -60,17 +60,71 @@
             </div>
             <div class="links-butao">
                 <div class="buttao-login">
-                    <button class="buttao-funcao-logar">Logar</button>
+                    <button class="buttao-funcao-logar" onclick="entrar()">Logar</button>
                 </div>
                 <div class="link-cadastro">
-                    <h3>Sua primeira vez? Faça o <a href="cadastro.html"><span
-                            id="texto-cadastro">Cadastro</span></a></h3>
+                    <h3>Sua primeira vez? Faça o <a href="cadastro.html"><span id="texto-cadastro">Cadastro</span></a>
+                    </h3>
                 </div>
             </div>
         </div>
     </div>
 
-
 </body>
 
 </html>
+
+<script>
+    function entrar() {
+        let email = ipt_email.value;
+        let senha = ipt_senha.value;
+
+        if (email == "" || senha == "") {
+            alert("Os campos precisam ser preenchidos!");
+            return;
+        }
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                emailServer: email,
+                senhaServer: senha
+            }),
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NICK_USUARIO = json.nickname;
+                    sessionStorage.ID_USUARIO = json.idUsuario;
+
+
+                    window.location = "dashboard.html";
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+</script>

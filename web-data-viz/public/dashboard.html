@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C-ops Analytics</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <!-- Fontes pega do Google fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+<body>
+
+
+    <div class="conteudo-total">
+        <div class="conteudo-navbar">
+            <div class="navbar">
+                <img src="assets/home/logo-white.png" alt="">
+                <div class="titulo-nome">
+                    <h2>Bem vindo,<span class="nome-usuario" id="usuario">Stylish!</span></h1>
+                </div>
+                <div class="links-dashboard">
+                    <div class="pagina">
+                        <a href="">
+                            <div class="texto-pagina">
+                                <h2 class="nome-pagina">Cadastrar</h2>
+                                <img src="assets/dashboard/cadastro-cops.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="pagina">
+                        <a href="">
+                            <div class="texto-pagina">
+                                <h2 class="nome-pagina">Analisar</h2>
+                                <img src="assets/dashboard/mapeamento.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="pagina">
+                        <a href="">
+                            <div class="texto-pagina">
+                                <h2 class="nome-pagina">Conquistas</h2>
+                                <img src="assets/dashboard/titulos.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="pagina">
+                        <a href="">
+                            <div class="texto-pagina">
+                                <h2 class="nome-pagina">Setup</h2>
+                                <img src="assets/dashboard/setup.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="dashboard-sair">
+                    <a href="">
+                        <a href="">
+                            <div class="texto-sair">
+                                <h2 class="nome-sair">Sair</h2>
+                                <img src="assets/dashboard/sair.png" alt="">
+                            </div>
+                        </a>
+                    </a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="conteudo-dashboard">
+            
+        </div>
+    </div>
+    
+
+<script>
+    
+    function validarSessao() {
+        let nome = sessionStorage.NICK_USUARIO;
+
+        if (nome != undefined) {
+            usuario.innerHTML = nome;
+        } else {
+            window.location = "login.html";
+        }
+    }
+
+    // Chamamos a função para ela executar
+    validarSessao();
+</script>
+</body>
+</html>
