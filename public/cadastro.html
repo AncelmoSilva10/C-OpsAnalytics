@@ -78,18 +78,47 @@
 
 <script>
 
-    function cadastrar(){
+    function cadastrar() {
         let nick = ipt_nick.value;
-        let idPLayer = Number(ipt_idPLayer.value);
+        let idPLayer = ipt_idPLayer.value;
         let qtPonto = Number(ipt_qtPonto.value);
-        let email =ipt_email.value;
+        let email = ipt_email.value;
         let senha = ipt_senha.value;
         let senhaRepetida = ipt_senhaRepetida.value;
 
-        if (nick == "" || idPLayer == "" || qtPonto == "" || email == "" || senhaRepetida == "") {
+        if (nick == "" || idPLayer == "" || qtPonto == "" || email == "" || senha == "" || senhaRepetida == "") {
             alert("Erro: Preencha todos os campos para prosseguir.");
+            return false;
         } else {
 
+            if (idPLayer < 0 || idPLayer.length < 8) {
+                alert("Erro: Insira o idPlayer corretamente! com apenas 8 caracteres!");
+                return false;
+            } else if (qtPonto < 0) {
+                alert("Erro: Quantidade de pontos, não pode ser negativa, somente de 0 para cima!");
+                return false;
+            } else if (senha != senhaRepetida) {
+                alert("Erro: A senhas deve ser iguais!");
+                return false;
+            }
+
+            let indice_arroba = -1;
+            let indice_ponto = -1;
+            for (let i = 0; i < email.length; i++) {
+                if (email[i] == "@") {
+                    indice_arroba = i;
+                }
+                if(email[i] == "."){
+                    indice_ponto = i;
+                }
+            }
+
+            if (indice_arroba <= 0 || indice_ponto <= indice_arroba + 1 || indice_ponto == email.length - 1) {
+                alert("Erro: Insira o valor do email corretamente! Exemplo(senhor@gmail.com)");
+                return false;
+            }
+
+            
             
         }
     }
