@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    font-family: "Rajdhani", sans-serif;
+    text-decoration: none;
+}
+
+.conteudo-total {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+}
+
+/* Navbar da esquerda */
+.conteudo-navbar {
+    width: 18%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #1F2937;
+}
+
+.navbar img {
+    width: 70%;
+}
+
+.navbar h2 {
+    color: white;
+}
+
+.nome-usuario {
+    color: #FFC116;
+}
+
+.navbar {
+    width: 100%;
+    height: 70%;
+    background-color: #1E1E1E;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    border-radius: 0px 30px 30px 0px;
+}
+
+.titulo-nome {
+    width: 100%;
+    height: 15%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Area dos links da dashboard */
+.links-dashboard {
+    width: 100%;
+    height: 80%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.texto-pagina {
+    width: 150px;
+    height: 50px;
+    border: 2px solid #7F96B3;
+}
+
+.texto-pagina {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.texto-pagina h2 {
+    color: white;
+    transition: 1s ease;
+}
+
+.texto-pagina h2:hover {
+    color: #FFC116;
+    transition: 0.5s ease;
+}
+
+.texto-pagina img {
+    width: 20%;
+}
+
+
+/* Parte de Sair */
+.dashboard-sair {
+    width: 100%;
+    height: 15%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-sair button {
+    background-color: #1E1E1E;
+    border: none;
+}
+
+.texto-sair {
+    display: flex;
+
+}
+
+/* Conteudos ao lado */
+.conteudo-dashboard {
+    width: 100%;
+    height: 100vh;
+
+    background-color: #1F2937;
+}
