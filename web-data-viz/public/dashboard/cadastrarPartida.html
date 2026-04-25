@@ -71,7 +71,8 @@
         </div>
 
         <div class="conteudo-dashboard">
-            <div class="conteudo-cadastro-partida">
+
+            <div class="conteudo-cadastro-partida" id="tela_partida">
                 <div class="titulo-cadastro-partida">
                     <div class="fundo-titulo-partida">
                         <h1 id="texto-cadastro">Cadastrar Partida</h1>
@@ -79,116 +80,155 @@
                 </div>
                 <div class="campos-leitura">
                     <div class="inputs-cadastro">
-                        <p class="texto-cadastro">Insira a Data da Partida:</p>
-                        <input type="text" id="ipt_dataPartida">
-                        <p class="texto-cadastro">Insira a duração média da partida (Minutos):</p>
+                        <p class="texto-cadastro">Data da Partida:</p>
+                        <input type="text" id="ipt_dataPartida" placeholder="AAAA-MM-DD">
+
+                        <p class="texto-cadastro">Duração média (Minutos):</p>
                         <input type="text" id="ipt_duracaoMedia">
-                        <p class="texto-cadastro">Insira quantos Rounds, o TR fez:</p>
+
+                        <p class="texto-cadastro">Rounds TR:</p>
                         <input type="number" id="ipt_roundTR">
-                        <p class="texto-cadastro">Insira quantos Rounds, o CT fez:</p>
+
+                        <p class="texto-cadastro">Rounds CT:</p>
                         <input type="number" id="ipt_roundCT">
-                        <p class="texto-cadastro">Insira o mapa jogado:</p>
-                        <select class="selecionar_mapa" name="mapa_id" id="ipt_mapa">
+
+                        <p class="texto-cadastro">Mapa:</p>
+                        <select class="selecionar_items" id="ipt_mapa">
                             <option value="1">Bureau</option>
                             <option value="2">Canals</option>
-                            <option value="3">Grounded</option>
-                            <option value="4">Legacy</option>
-                            <option value="5">Raid</option>
-                            <option value="6">Plaza</option>
-                            <option value="7">Port</option>
-                            <option value="8">Soar</option>
-                            <option value="9">Village</option>
                         </select>
-                        <p class="texto-cadastro">Resultado da Partida:</p>
-                        <select class="selecionar_mapa" name="mapa_id" id="ipt_resultado">
+
+                        <p class="texto-cadastro">Resultado:</p>
+                        <select class="selecionar_items" id="ipt_resultado">
                             <option value="0">Derrota</option>
                             <option value="1">Vitória</option>
                         </select>
                     </div>
                 </div>
                 <div class="links-butao">
-                    <button class="buttao-funcao-cadastrar" onclick="cadastrarPartida()">Cadastrar</button>
+                    <button class="buttao-funcao-cadastrar" onclick="cadastrarPartida()">Cadastrar Partida</button>
+                </div>
+
+                <div id="div_aguardar" class="loading-div" style="display: none;">
+                    <img src="../assets/aguarde-orange.gif" id="loading-gif">
+                </div>
+
+            </div>
+
+            <!-- A segunda tela, ela aparece so quando cadastra, pois ela esta com dispaky como none -->
+
+            <div class="conteudo-cadastro-partida" id="tela_round" style="display: none;">
+                <div class="titulo-cadastro-partida">
+                    <div class="fundo-titulo-partida">
+                        <h1>Cadastrar Round <span id="span_num_round">1</span></h1>
+                    </div>
+                </div>
+                <div class="campos-leitura">
+                    <div class="inputs-cadastro">
+                        <p class="texto-cadastro">Vitória da Equipe:</p>
+                        <select class="selecionar_items" id="ipt_vitoria">
+                            <option value="TR">Terrorista</option>
+                            <option value="CT">Contraterrorista</option>
+                        </select>
+
+                        <p class="texto-cadastro">Duração (segundos):</p>
+                        <input type="number" id="ipt_duracao_round">
+
+                        <h2 class="texto-evento">Registrar Evento</h2>
+
+                        <p class="texto-cadastro">Tipo:</p>
+                        <select class="selecionar_items" id="ipt_tipoEvento">
+                            <option value="Abate">Abate (Kill)</option>
+                            <option value="Morte">Morte</option>
+                        </select>
+
+                        <p class="texto-cadastro">Local do Mapa:</p>
+                        <select class="selecionar_items" id="ipt_parteDoMapa">
+                            <option value="1">Bomb A</option>
+                            <option value="2">Bomb B</option>
+                            <option value="3">Meio</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="links-butao">
+                    <button class="buttao-funcao-cadastrar" onclick="cadastrarRound()">Salvar Round</button>
+                    <button class="buttao-funcao-cadastrar" style="background-color: #444;"
+                        onclick="finalizar()">Finalizar</button>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <script>
-
-        function validarSessao() {
-            let nome = sessionStorage.NICK_USUARIO;
-
-            if (nome != undefined) {
-                usuario.innerHTML = nome;
-            } else {
-                window.location = "login.html";
-            }
-        }
-
-        validarSessao();
+        <script>
 
 
-        function cadastrarPartida() {
+            let idPartida = null;
+            let numeroRoundAtual = 1;
 
-            let data_partida = ipt_dataPartida.value;
-            let duracao = ipt_duracaoMedia.value;
-            let roundsTR = ipt_roundTR.value;
-            let roundsCT = ipt_roundCT.value;
-            let mapaRaw = ipt_mapa.value;
-            let resultadoRaw = ipt_resultado.value;
-            let usuario = sessionStorage.ID_USUARIO;
+            function cadastrarPartida() {
 
-            if (duracao == "" || roundsTR == "" || roundsCT == "" || mapaRaw == "" || resultadoRaw == "") {
-                alert("Preencha todos os campos para cadastrar!");
-                return;
-            }
+                aguardar();
 
+                let data_partida = ipt_dataPartida.value;
+                let duracao = ipt_duracaoMedia.value;
+                let roundsTR = ipt_roundTR.value;
+                let roundsCT = ipt_roundCT.value;
+                let mapaRaw = ipt_mapa.value;
+                let resultadoRaw = ipt_resultado.value;
+                let usuario = sessionStorage.ID_USUARIO;
 
-            let mapa = Number(mapaRaw);
-            let resultado = Number(resultadoRaw);
-            let rTR = Number(roundsTR);
-            let rCT = Number(roundsCT);
-
-            if (rCT < 0 || rCT > 13 || rTR < 0 || rTR > 13) {
-                alert("Insira uma quantidade de rounds válida (0 a 13)");
-                return;
-            }
-
-            fetch("/partidas/cadastrar", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    data_partidaServer: data_partida == "" ? null : data_partida,
-                    duracaoServer: Number(duracao),
-                    roundsTRServer: rTR,
-                    roundsCTServer: rCT,
-                    resultadoServer: resultado,
-                    usuarioServer: usuario,
-                    mapaServer: mapa
-                }),
-            }).then(function (resposta) {
-                console.log("RESPOSTA: ", resposta);
-
-                if (resposta.ok) {
-                    alert("Cadastro de partida, realizado, agora simule cada round!");
-                    setTimeout(() => {
-
-                    }, "2000");
-                } else {
-                    resposta.text().then(texto => {
-                        console.error(texto);
-                        alert("Erro no cadastro: " + texto);
-                    });
+                if (duracao == "" || roundsTR == "" || roundsCT == "" || mapaRaw == "" || resultadoRaw == "") {
+                    alert("Preencha todos os campos para cadastrar!");
+                    return;
                 }
-            })
-                .catch(function (erro) {
-                    console.log("#ERRO: ", erro);
-                });
 
-            return false;
-        }
-    </script>
+
+                let mapa = Number(mapaRaw);
+                let resultado = Number(resultadoRaw);
+                let rTR = Number(roundsTR);
+                let rCT = Number(roundsCT);
+
+                if (rCT < 0 || rCT > 13 || rTR < 0 || rTR > 13) {
+                    alert("Insira uma quantidade de rounds válida (0 a 13)");
+                    return;
+                }
+
+                fetch("/partidas/cadastrar", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        data_partidaServer: data_partida == "" ? null : data_partida,
+                        duracaoServer: Number(duracao),
+                        roundsTRServer: rTR,
+                        roundsCTServer: rCT,
+                        resultadoServer: resultado,
+                        usuarioServer: usuario,
+                        mapaServer: mapa
+                    }),
+                }).then(function (resposta) {
+                    console.log("RESPOSTA: ", resposta);
+
+                    if (resposta.ok) {
+                        finalizarAguardar();
+
+                        setTimeout(() => {
+                            alert("Cadastro de partida, realizado, agora simule cada round!");
+                            document.getElementById("tela_partida").style.display = "none"; // Esconde a partida
+                            document.getElementById("tela_round").style.display = "block";  // Mostra o round
+                        }, "2000");
+                    } else {
+                        resposta.text().then(texto => {
+                            console.error(texto);
+                            alert("Erro no cadastro: " + texto);
+                        });
+                    }
+                }) .catch(function (erro) {
+                        console.log("#ERRO: ", erro);
+                    });
+
+                return false;
+            }
+        </script>
 </body>
 
 </html>
