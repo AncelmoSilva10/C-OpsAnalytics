@@ -1,6 +1,6 @@
 CREATE DATABASE copsAnalytics;
 USE copsAnalytics;
-
+-- DROP DATABASE copsAnalytics;
 -- 1. MAPA
 CREATE TABLE mapa (
   idmapa INT AUTO_INCREMENT PRIMARY KEY,
@@ -41,6 +41,8 @@ CREATE TABLE partida (
   duracao_media INT,
   rounds_TR INT DEFAULT 0,
   rounds_CT INT DEFAULT 0,
+  resultado TINYINT,
+  CONSTRAINT fk_partida_result CHECK(resultado IN (1,0)),
   fk_usuario INT NOT NULL,
   fk_mapa INT NOT NULL,
 
@@ -75,3 +77,20 @@ CREATE TABLE posicao_evento (
   CONSTRAINT fk_event_arma FOREIGN KEY (fk_armamento) REFERENCES armamento (idarmamento),
   CONSTRAINT fk_event_sessao FOREIGN KEY (fk_sesao_mapa) REFERENCES sesao_mapa (idsesao_mapa)
 );
+
+
+SELECT * FROM usuario;
+SELECT * FROM partida;
+
+-- Cadastro dos Mapas
+INSERT INTO mapa (nome_mapa, imagem_url) 
+	VALUES 
+		('Bureau', 'assets/mapas_calor/bureau'),
+		('Canals', 'assets/mapas_calor/canals'),
+		('Grounded', 'assets/mapas_calor/grounded'),
+		('Legacy', 'assets/mapas_calor/legacy'),
+		('Raid', 'assets/mapas_calor/raid'),
+		('Plaza', 'assets/mapas_calor/plaza'),
+		('Port', 'assets/mapas_calor/port'),
+		('Soar', 'assets/mapas_calor/soar'),
+		('Village', 'assets/mapas_calor/village');
