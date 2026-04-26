@@ -96,6 +96,13 @@
                         <select class="selecionar_items" id="ipt_mapa">
                             <option value="1">Bureau</option>
                             <option value="2">Canals</option>
+                            <option value="3">Grounded</option>
+                            <option value="4">Legacy</option>
+                            <option value="5">Raid</option>
+                            <option value="6">Plaza</option>
+                            <option value="7">Port</option>
+                            <option value="8">Soar</option>
+                            <option value="9">Village</option>
                         </select>
 
                         <p class="texto-cadastro">Resultado:</p>
@@ -152,8 +159,7 @@
                 </div>
                 <div class="links-butao">
                     <button class="buttao-funcao-cadastrar" onclick="cadastrarRound()">Salvar Round</button>
-                    <button class="buttao-funcao-cadastrar" style="background-color: #444;"
-                        onclick="finalizar()">Finalizar</button>
+                    <button class="buttao-funcao-cadastrar" onclick="finalizar()">Finalizar</button>
                 </div>
             </div>
         </div>
@@ -193,12 +199,18 @@
                     return;
                 }
 
+                if (data_partida == "") {
+                    data_partida = null;
+                }
+
+                duracao = Number(duracao);
+
                 fetch("/partidas/cadastrar", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        data_partidaServer: data_partida == "" ? null : data_partida,
-                        duracaoServer: Number(duracao),
+                        data_partidaServer: data_partida,
+                        duracaoServer: duracao,
                         roundsTRServer: rTR,
                         roundsCTServer: rCT,
                         resultadoServer: resultado,
@@ -209,22 +221,27 @@
                     console.log("RESPOSTA: ", resposta);
 
                     if (resposta.ok) {
-                        finalizarAguardar();
+                        resposta.json().then(json => {
+                            idPartida = json.insertId;
+                            console.log("ID da partida:", idPartida);
 
-                        setTimeout(() => {
-                            alert("Cadastro de partida, realizado, agora simule cada round!");
-                            document.getElementById("tela_partida").style.display = "none"; // Esconde a partida
-                            document.getElementById("tela_round").style.display = "block";  // Mostra o round
-                        }, "2000");
+                            finalizarAguardar();
+
+                            setTimeout(() => {
+                                alert("Cadastro de partida realizado!");
+                                tela_partida.style.display = "none";
+                                tela_round.style.display = "block";
+                            }, 2000);
+                        });
                     } else {
                         resposta.text().then(texto => {
                             console.error(texto);
                             alert("Erro no cadastro: " + texto);
                         });
                     }
-                }) .catch(function (erro) {
-                        console.log("#ERRO: ", erro);
-                    });
+                }).catch(function (erro) {
+                    console.log("#ERRO: ", erro);
+                });
 
                 return false;
             }

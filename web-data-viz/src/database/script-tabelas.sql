@@ -81,6 +81,7 @@ CREATE TABLE posicao_evento (
 
 SELECT * FROM usuario;
 SELECT * FROM partida;
+SELECT * FROM sesao_mapa;
 
 -- Cadastro dos Mapas
 INSERT INTO mapa (nome_mapa, imagem_url) 
@@ -94,3 +95,95 @@ INSERT INTO mapa (nome_mapa, imagem_url)
 		('Port', 'assets/mapas_calor/port'),
 		('Soar', 'assets/mapas_calor/soar'),
 		('Village', 'assets/mapas_calor/village');
+        
+-- Cadastro das sessões basicas dos mapas
+-- 1. MAPA: BUREAU
+INSERT INTO sesao_mapa (nome_sesao, fk_mapa) VALUES 
+    ('Bomb A',    1),
+    ('Bomb B',    1),
+    ('Meio',      1),
+    ('Spawn TR',  1),
+    ('Spawn CT',  1),
+    ('Fundo A',   1),
+    ('Fundo B',   1);
+
+-- 2. MAPA: CANALS
+INSERT INTO sesao_mapa (nome_sesao, fk_mapa) VALUES 
+    ('Bomb A',    2),
+    ('Bomb B',    2),
+    ('Meio',      2),
+    ('Spawn TR',  2),
+    ('Spawn CT',  2),
+    ('Fundo A',   2),
+    ('Fundo B',   2);
+
+-- 3. MAPA: GROUNDED
+INSERT INTO sesao_mapa (nome_sesao, fk_mapa) VALUES 
+    ('Bomb A',    3),
+    ('Bomb B',    3),
+    ('Meio',      3),
+    ('Spawn TR',  3),
+    ('Spawn CT',  3),
+    ('Fundo A',   3),
+    ('Fundo B',   3);
+
+-- 4. MAPA: LEGACY
+INSERT INTO sesao_mapa (nome_sesao, fk_mapa) VALUES 
+    ('Bomb A',    4),
+    ('Bomb B',    4),
+    ('Meio',      4),
+    ('Spawn TR',  4),
+    ('Spawn CT',  4),
+    ('Fundo A',   4),
+    ('Fundo B',   4);
+
+-- 5. MAPA: RAID
+INSERT INTO sesao_mapa (nome_sesao, fk_mapa) VALUES 
+    ('Bomb A',    5),
+    ('Bomb B',    5),
+    ('Meio',      5),
+    ('Spawn TR',  5),
+    ('Spawn CT',  5),
+    ('Fundo A',   5),
+    ('Fundo B',   5);
+
+-- 6. MAPA: PLAZA
+INSERT INTO sesao_mapa (nome_sesao, fk_mapa) VALUES 
+    ('Bomb A',    6),
+    ('Bomb B',    6),
+    ('Meio',      6),
+    ('Spawn TR',  6),
+    ('Spawn CT',  6),
+    ('Fundo A',   6),
+    ('Fundo B',   6);
+
+-- 7. MAPA: PORT
+INSERT INTO sesao_mapa (nome_sesao, fk_mapa) VALUES 
+    ('Bomb A',    7),
+    ('Bomb B',    7),
+    ('Meio',      7),
+    ('Spawn TR',  7),
+    ('Spawn CT',  7),
+    ('Fundo A',   7),
+    ('Fundo B',   7);
+
+-- 8. MAPA: SOAR
+INSERT INTO sesao_mapa (nome_sesao, fk_mapa) VALUES 
+    ('Bomb A',    8),
+    ('Bomb B',    8),
+    ('Meio',      8),
+    ('Spawn TR',  8),
+    ('Spawn CT',  8),
+    ('Fundo A',   8),
+    ('Fundo B',   8);
+
+-- 9. MAPA: VILLAGE
+INSERT INTO sesao_mapa (nome_sesao, fk_mapa) VALUES 
+    ('Bomb A',    9),
+    ('Bomb B',    9),
+    ('Meio',      9),
+    ('Spawn TR',  9),
+    ('Spawn CT',  9),
+    ('Fundo A',   9),
+    ('Fundo B',   9);
+    
