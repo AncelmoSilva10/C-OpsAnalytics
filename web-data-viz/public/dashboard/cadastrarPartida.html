@@ -154,7 +154,15 @@
                             <option value="1">Bomb A</option>
                             <option value="2">Bomb B</option>
                             <option value="3">Meio</option>
+                            <option value="4">Spawn TR</option>
+                            <option value="5">Spawn CT</option>
+                            <option value="6">Fundo A</option>
+                            <option value="7">Fundo B</option>
                         </select>
+
+                        <button onclick="adicionarEvento()">Adicionar Evento</button>
+
+                        <div id="lista_eventos"></div>
                     </div>
                 </div>
                 <div class="links-butao">
@@ -170,6 +178,7 @@
 
             let idPartida = null;
             let numeroRoundAtual = 1;
+            let listaEventos = [];
 
             function cadastrarPartida() {
 
@@ -244,6 +253,118 @@
                 });
 
                 return false;
+            }
+
+
+            function cadastrarRound() {
+                let vitoria = ipt_vitoria.value;
+                let duracao = ipt_duracao_round.value;
+
+
+                if (duracao == "") {
+                    alert("Preencha a duração do round!");
+                    return;
+                }
+
+                if (vitoria == "") {
+                    alert("Preencha quem venceu o round!");
+                    return;
+                }
+
+                //  Cadastra o ROUND primeiro
+                fetch("/round/cadastrar", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        numeroRoundServer: numeroRoundAtual,
+                        vitoriaServer: vitoria,
+                        duracaoServer: duracao,
+                        partidaServer: idPartida
+                    })
+                })
+                    .then(res => res.json())
+                    .then(json => {
+
+                        let idRound = json.insertId; //Peguei o ID do round, mesma lǵocia, q fiz para pegar o da partida e vincular a ele
+                        console.log("ID do round:", idRound);
+
+                        // Agora salva TODOS os eventos desse round
+                        for (let i = 0; i < listaEventos.length; i++) {
+
+                            let item = listaEventos[i];
+
+                            fetch("/evento/cadastrar", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    tipoServer: item.tipo,
+                                    xServer: item.x,
+                                    yServer: item.y,
+                                    usuarioServer: sessionStorage.ID_USUARIO,
+                                    roundServer: idRound,
+                                    armaServer: 1, //To deixando fixo, 1 porque salvei no banco so uma arma para teste
+                                    sessaoServer: item.parte
+                                })
+                            });
+                        }
+
+                        // Limpa os eventos depois de salvar
+                        listaEventos = [];
+                        lista_eventos.innerHTML = "";
+
+                        // Atualiza para próximo round
+                        numeroRoundAtual++;
+                        span_num_round.innerText = numeroRoundAtual;
+
+                        alert("Round salvo com sucesso!");
+                    })
+                    .catch(erro => {
+                        console.log("Erro ao cadastrar round:", erro);
+                    });
+            }
+
+            // Adiciono eventos, porque ele pode fazer mais de 1kill, para o round (Como kill ou morte), ou seja, 1Round.
+            //POde ter varios eventos
+            function adicionarEvento() {
+                let tipo = ipt_tipoEvento.value;
+                let parte = Number(ipt_parteDoMapa.value);
+
+                console.log(tipo, parte);
+
+                let pos = gerarPosicao(parte);
+
+                let evento = {
+                    tipo: tipo,
+                    x: pos.x,
+                    y: pos.y,
+                    parte: parte
+                };
+
+                listaEventos.push(evento);
+
+                lista_eventos.innerHTML += `<p>${tipo} - Região ${parte}</p>`;
+
+                console.log("Eventos:", listaEventos);
+            }
+
+            //Gerando a posição do mapa, e estou utilizando como base cada um dos trechos abaixo(TO focado no BUreau).
+            function gerarPosicao(parteMapa) {
+                const base = {
+                    1: { x: 300, y: 800 }, // Bomb A
+                    2: { x: 600, y: 300 }, // Bomb B
+                    3: { x: 450, y: 500 }, // Meio
+                    4: { x: 200, y: 900 }, // Spawn TR
+                    5: { x: 700, y: 100 }, // Spawn CT
+                    6: { x: 250, y: 600 }, // Fundo A
+                    7: { x: 650, y: 400 }  // Fundo B
+                };
+
+                let pos = base[parteMapa];
+
+                return {
+                    x: pos.x + Math.floor(Math.random() * 40),
+                    y: pos.y + Math.floor(Math.random() * 40)
+                };
             }
         </script>
 </body>
