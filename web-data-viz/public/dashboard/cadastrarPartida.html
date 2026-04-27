@@ -94,6 +94,9 @@
                         <p class="texto-cadastro">Rounds CT:</p>
                         <input type="number" id="ipt_roundCT">
 
+                        <p class="texto-cadastro">Quantos pontos (Ganhou ou Perdeu):</p>
+                        <input type="number" id="ipt_pontos">
+
                         <p class="texto-cadastro">Mapa:</p>
                         <select class="selecionar_items" id="ipt_mapa">
                             <option value="1">Bureau</option>
@@ -192,11 +195,12 @@
                 let duracao = ipt_duracaoMedia.value;
                 let roundsTR = ipt_roundTR.value;
                 let roundsCT = ipt_roundCT.value;
+                let pontos = ipt_pontos.value;
                 let mapaRaw = ipt_mapa.value;
                 let resultadoRaw = ipt_resultado.value;
                 let usuario = sessionStorage.ID_USUARIO;
 
-                if (duracao == "" || roundsTR == "" || roundsCT == "" || mapaRaw == "" || resultadoRaw == "") {
+                if (duracao == "" || roundsTR == "" || roundsCT == "" || pontos == "" || mapaRaw == "" || resultadoRaw == "") {
                     alert("Preencha todos os campos para cadastrar!");
                     return;
                 }
@@ -206,6 +210,7 @@
                 let resultado = Number(resultadoRaw);
                 let rTR = Number(roundsTR);
                 let rCT = Number(roundsCT);
+                 pontos = Number(pontos);
 
                 if (rCT < 0 || rCT > 13 || rTR < 0 || rTR > 13) {
                     alert("Insira uma quantidade de rounds válida (0 a 13)");
@@ -226,6 +231,7 @@
                         duracaoServer: duracao,
                         roundsTRServer: rTR,
                         roundsCTServer: rCT,
+                        qtPontosServer: pontos,
                         resultadoServer: resultado,
                         usuarioServer: usuario,
                         mapaServer: mapa
@@ -297,7 +303,7 @@
 
                             let item = listaEventos[i];
 
-                            console.log( item.y);
+                            console.log(item.y);
 
                             fetch("/eventos/cadastrar", {
                                 method: "POST",
