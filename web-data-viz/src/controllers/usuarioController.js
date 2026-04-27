@@ -23,7 +23,7 @@ function autenticar(req, res) {
                             idUsuario: resultadoAutenticar[0].idUsuario,
                             nickname: resultadoAutenticar[0].nickname,
                             id_player: resultadoAutenticar[0].id_player,
-                            qt_pontos: resultadoAutenticar[0].senha,
+                            pontos_atuais: resultadoAutenticar[0].pontos_atuais,
                             email: resultadoAutenticar[0].email,
                         });
 

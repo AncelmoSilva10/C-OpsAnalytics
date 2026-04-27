@@ -3,15 +3,21 @@ var database = require("../database/config")
 function autenticar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucaoSql = `
-        SELECT idUsuario, nickname, id_player, qt_pontos, email FROM usuario WHERE email = '${email}' AND senha = '${senha}';
-    `;
+        SELECT u.idUsuario, u.nickname, u.id_player, 
+	CASE
+		WHEN p.qt_pontos < 0 THEN u.qt_pontos - p.qt_pontos
+        ELSE u.qt_pontos + p.qt_pontos
+	END pontos_atuais, u.email FROM usuario u 
+    INNER JOIN partida p ON p.fk_usuario = u.idUsuario
+	    WHERE u.email = '${email}' AND u.senha = '${senha}';
+`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
 function cadastrar(nick, idPlayer, qtPonto, email, senha) {
-   
+
     console.log("ACESSEI O USUARIO MODEL \n function cadastrar():", nick, idPlayer, qtPonto, email, senha);
 
     var instrucaoSql = `

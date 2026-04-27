@@ -74,6 +74,8 @@
             <div class="conteudo-kpis">
                 <div class="kpi">
                     <h1>Patente</h1>
+                    <h2 id="nome_patente"></h2>
+                    <div id="imagem_patente"></div>
                 </div>
                 <div class="kpi">
                     <h1>KD</h1>
@@ -98,7 +100,6 @@
         </div>
     </div>
 
-
     <script>
 
 
@@ -108,4 +109,53 @@
 </html>
 <script>
     validarSessao();
+
+    let patentesOrdem = [
+        '../assets/patente/semRank.png',
+        '../assets/patente/ferro.png',
+        '../assets/patente/bronze.png',
+        '../assets/patente/prata.png',
+        '../assets/patente/ouro.png',
+        '../assets/patente/platina.png',
+        '../assets/patente/diamante.png',
+        '../assets/patente/mestre.png',
+        '../assets/patente/specOps.png',
+        '../assets/patente/eliteOps.png'
+    ];
+
+    let pontos = sessionStorage.PONTOS_ATUAIS;
+
+
+
+    if (pontos == 0) {
+        nome_patente.innerHTML = `Sem Rank <span style="color: #FFC116">${pontos}</span>`;
+        imagem_patente.innerHTML = '<img src="' + patentesOrdem[0] + '">';
+    } else if (pontos <= 1199) {
+        nome_patente.innerHTML = `Ferro <span style="color: #FFC116">${pontos}</span>`;
+        imagem_patente.innerHTML = '<img src="' + patentesOrdem[1] + '">';
+    } else if (pontos <= 1299) {
+        nome_patente.innerHTML = `Bronze <span style="color: #FFC116">${pontos}</span>`;
+        imagem_patente.innerHTML = '<img src="' + patentesOrdem[2] + '">';
+    } else if (pontos <= 1399) {
+        nome_patente.innerHTML = `Prata <span style="color: #FFC116">${pontos}</span>`;
+        imagem_patente.innerHTML = '<img src="' + patentesOrdem[3] + '">';
+    } else if (pontos <= 1499) {
+        nome_patente.innerHTML = `Ouro <span style="color: #FFC116">${pontos}</span>`;
+        imagem_patente.innerHTML = '<img src="' + patentesOrdem[4] + '">';
+    } else if (pontos <= 1599) {
+        nome_patente.innerHTML = `Platina <span style="color: #FFC116">${pontos}</span>`;
+        imagem_patente.innerHTML = '<img src="' + patentesOrdem[5] + '">';
+    } else if (pontos <= 1699) {
+        nome_patente.innerHTML = `Diamante <span style="color: #FFC116">${pontos}</span>`;
+        imagem_patente.innerHTML = '<img src="' + patentesOrdem[6] + '">';
+    } else if (pontos <= 1899) {
+        nome_patente.innerHTML = `Mestre <span style="color: #FFC116">${pontos}</span>`;
+        imagem_patente.innerHTML = '<img src="' + patentesOrdem[7] + '">';
+    } else if (pontos <= 1999) {
+        nome_patente.innerHTML = `Spec Ops <span style="color: #FFC116">${pontos}</span>`;
+        imagem_patente.innerHTML = '<img src="' + patentesOrdem[8] + '">';
+    } else if (pontos >= 2000) {
+        nome_patente.innerHTML = `Elite Ops <span style="color: #FFC116">${pontos}</span>`;
+        imagem_patente.innerHTML = '<img src="' + patentesOrdem[9] + '">';
+    }
 </script>
