@@ -293,24 +293,26 @@
                         console.log("ID do round:", idRound);
 
                         // // Agora salva TODOS os eventos desse round
-                        // for (let i = 0; i < listaEventos.length; i++) {
+                        for (let i = 0; i < listaEventos.length; i++) {
 
-                        //     let item = listaEventos[i];
+                            let item = listaEventos[i];
 
-                        //     fetch("/eventos/cadastrar", {
-                        //         method: "POST",
-                        //         headers: { "Content-Type": "application/json" },
-                        //         body: JSON.stringify({
-                        //             tipoServer: item.tipo,
-                        //             xServer: item.x,
-                        //             yServer: item.y,
-                        //             usuarioServer: sessionStorage.ID_USUARIO,
-                        //             roundServer: idRound,
-                        //             armaServer: 1, //To deixando fixo, 1 porque salvei no banco so uma arma para teste
-                        //             sessaoServer: item.parte
-                        //         })
-                        //     });
-                        // }
+                            console.log( item.y);
+
+                            fetch("/eventos/cadastrar", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    tipoServer: item.tipo,
+                                    xServer: item.x,
+                                    yServer: item.y,
+                                    usuarioServer: sessionStorage.ID_USUARIO,
+                                    roundServer: idRound,
+                                    armaServer: 1, //To deixando fixo, 1 porque salvei no banco so uma arma para teste
+                                    sessaoServer: item.parte
+                                })
+                            });
+                        }
 
                         // Limpa os eventos depois de salvar
                         listaEventos = [];

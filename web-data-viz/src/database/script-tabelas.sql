@@ -82,6 +82,9 @@ CREATE TABLE posicao_evento (
 SELECT * FROM usuario;
 SELECT * FROM partida;
 SELECT * FROM sesao_mapa;
+SELECT * FROM round;
+SELECT * FROM armamento;
+SELECT * FROM posicao_evento;
 
 -- Cadastro dos Mapas
 INSERT INTO mapa (nome_mapa, imagem_url) 
@@ -187,3 +190,14 @@ INSERT INTO sesao_mapa (nome_sesao, fk_mapa) VALUES
     ('Fundo A',   9),
     ('Fundo B',   9);
     
+ INSERT INTO armamento (tipo_armamento, imagem_url_armamento) 
+	VALUES 
+		('Rifle - Coalition (M4)', 'assets/armamento/m4.png'),
+		('Rifle - Breach (AK-47)', 'assets/armamento/ak47.png'),
+		('Pistola - Coalition (P250)', 'assets/armamento/p250.png'),
+		('Pistola - Breach (GSR 1911)', 'assets/armamento/gsr.png'),
+		('Pistola - Especial (Desert Eagle)', 'assets/armamento/deagle.png'),
+		('SMG - Coalition (MP5)', 'assets/armamento/mp5.png'),
+		('SMG - Breach (MP7)', 'assets/armamento/mp7.png'),
+		('Sniper - Universal (Uratio)', 'assets/armamento/uratio.png'),
+		('Corpo a Corpo - Universal (Knife)', 'assets/armamento/knife.png');   
