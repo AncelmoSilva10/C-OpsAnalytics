@@ -153,3 +153,19 @@
     width: 15%;
 
 }
+
+.botao-evento{
+    background-color: #1F2937;
+    color: #FFC116;
+    font-weight: bold;
+}
+
+.buttao-funcao-finalizar{
+    margin: 20px;
+    width: 80px;
+    height: 60px;
+
+    background-color: #1F2937;
+    color: #FFC116;
+    font-weight: bold;
+}
