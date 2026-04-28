@@ -38,8 +38,24 @@ function buscarPatente(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function buscarWinRating(idUsuario) {
+    console.log("ACESSEI O PARTIDA MODEL \n function buscarWinRating():", idUsuario);
+
+    var instrucaoSql = `
+        SELECT 
+            TRUNCATE((tv.total_vitorias * 100.0 / t.total_partidas),0) AS win_rate
+        FROM 
+            (SELECT COUNT(*) AS total_vitorias FROM partida WHERE resultado = 1 AND fk_usuario = ${idUsuario}) AS tv,
+            (SELECT COUNT(*) AS total_partidas FROM partida WHERE fk_usuario = ${idUsuario}) AS t;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarTotalAbates,
     buscarTotalMortes,
-    buscarPatente
+    buscarPatente,
+    buscarWinRating
 };

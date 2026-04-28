@@ -84,7 +84,8 @@
                     <p class="metricas_kills">Total de Mortes: </p><span id="total_mortes_player"></span>
                 </div>
                 <div class="kpi">
-                    <h1>Win Rating</h1>
+                    <h1 class="metricas_kills">Win Rating</h1>
+                    <h2 id="id_win_rating"></h2>
                 </div>
             </div>
             <div class="conteudo-historico-alerta">
@@ -118,6 +119,7 @@
         exibirAbates();
         exibirMortes();
         buscarPontos();
+        exibirWinRating();
     }
 
     let kills = 0;
@@ -157,7 +159,17 @@
         })
     }
 
+    let winRating = 0;
 
+    function exibirWinRating() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/vitorias/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                winRating = json.win_rate;
+                id_win_rating.innerHTML = winRating;
+            })
+        })
+    }
 
     // Calculo do KD (Kill/Death) Abates por Morte
     function atualizarKd() {
@@ -171,7 +183,6 @@
 
         kd_player.innerHTML = kd;
     }
-
 
     let patentesOrdem = [
         '../assets/patente/semRank.png',

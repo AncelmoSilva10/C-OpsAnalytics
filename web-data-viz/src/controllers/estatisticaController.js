@@ -3,7 +3,7 @@ var estatisticaModel = require("../models/estatisticaModel");
 function buscarTotalAbates(req, res) {
     var idUsuario = req.params.idUsuario;
 
-   
+
     estatisticaModel.buscarTotalAbates(idUsuario)
         .then(function (resultado) {
             if (resultado.length > 0) {
@@ -20,8 +20,8 @@ function buscarTotalAbates(req, res) {
 function buscarTotalMortes(req, res) {
     var idUsuario = req.params.idUsuario;
 
-    
-    estatisticaModel.buscarTotalMortes(idUsuario) 
+
+    estatisticaModel.buscarTotalMortes(idUsuario)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado[0]);
@@ -34,10 +34,26 @@ function buscarTotalMortes(req, res) {
         });
 }
 
-function buscarPatente(req, res){
+function buscarPatente(req, res) {
     var idUsuario = req.params.idUsuario;
 
-    estatisticaModel.buscarPatente(idUsuario) 
+    estatisticaModel.buscarPatente(idUsuario)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado[0]);
+            } else {
+                res.status(204).send("Nenhum resultado!");
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+function buscarWinRating(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+    estatisticaModel.buscarWinRating(idUsuario)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado[0]);
@@ -53,5 +69,6 @@ function buscarPatente(req, res){
 module.exports = {
     buscarTotalAbates,
     buscarTotalMortes,
-    buscarPatente
+    buscarPatente,
+    buscarWinRating
 };

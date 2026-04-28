@@ -15,4 +15,8 @@ router.get("/pontos/:idUsuario", function (req, res) {
     estatisticaController.buscarPatente(req, res);
 });
 
+router.get("/vitorias/:idUsuario", function (req, res) {
+    estatisticaController.buscarWinRating(req, res);
+});
+
 module.exports = router;
