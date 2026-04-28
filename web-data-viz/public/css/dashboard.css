@@ -195,3 +195,9 @@
     width: 60%;
     height: 95%;
 }
+
+/* Cores das estatisticas das kills */
+.metricas_kills{
+    color: #FFC116;
+    font-weight: bolder;
+}

@@ -78,7 +78,10 @@
                     <div id="imagem_patente"></div>
                 </div>
                 <div class="kpi">
-                    <h1>KD</h1>
+                    <h1 class="metricas_kills">KD: </h1>
+                    <span id="kd_player"></span>
+                    <p class="metricas_kills">Total de Kills: </p><span id="total_abates_player"></span>
+                    <p class="metricas_kills">Total de Mortes: </p><span id="total_mortes_player"></span>
                 </div>
                 <div class="kpi">
                     <h1>Win Rating</h1>
@@ -110,6 +113,52 @@
 <script>
     validarSessao();
 
+
+    function atualizarDash() {
+        exibirAbates();
+        exibirMortes();
+    }
+
+    let kills = 0;
+    let mortes = 0;
+
+
+    function exibirAbates() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/abates/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                kills = json.total_abates;
+                total_abates_player.innerHTML = kills;
+                atualizarKd();
+            })
+        })
+    }
+
+    function exibirMortes() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/mortes/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                mortes = json.total_mortes;
+                total_mortes_player.innerHTML = mortes;
+                atualizarKd();
+            })
+        })
+    }
+
+    // Calculo do KD (Kill/Death) Abates por Morte
+    function atualizarKd() {
+        let kd;
+
+        if(mortes > 0){
+            kd = (kills / mortes).toFixed(2);
+        }else{
+            kd = kills.toFixed(2);
+        }
+         
+        kd_player.innerHTML = kd;
+    }
+
+
     let patentesOrdem = [
         '../assets/patente/semRank.png',
         '../assets/patente/ferro.png',
@@ -124,7 +173,6 @@
     ];
 
     let pontos = sessionStorage.PONTOS_ATUAIS;
-
 
 
     if (pontos == 0) {
@@ -158,4 +206,6 @@
         nome_patente.innerHTML = `Elite Ops <span style="color: #FFC116">${pontos}</span>`;
         imagem_patente.innerHTML = '<img src="' + patentesOrdem[9] + '">';
     }
+
+    atualizarDash();
 </script>
