@@ -25,7 +25,26 @@ function buscarTotalMortes(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function buscarPatente(idUsuario) {
+    console.log("ACESSEI O PARTIDA MODEL \n function buscarPatente():", idUsuario);
+
+    var instrucaoSql = `
+        SELECT  
+	    CASE
+		    WHEN p.qt_pontos < 0 THEN u.qt_pontos - p.qt_pontos
+            ELSE u.qt_pontos + p.qt_pontos
+	    END pontos_atuais
+    FROM usuario u 
+    INNER JOIN partida p ON p.fk_usuario = u.idUsuario
+	  WHERE u.idUsuario = ${idUsuario} ORDER BY pontos_atuais DESC LIMIT 1;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarTotalAbates,
-    buscarTotalMortes
+    buscarTotalMortes,
+    buscarPatente
 };

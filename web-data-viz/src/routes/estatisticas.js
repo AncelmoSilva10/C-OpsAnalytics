@@ -11,4 +11,8 @@ router.get("/mortes/:idUsuario", function (req, res) {
     estatisticaController.buscarTotalMortes(req, res);
 });
 
+router.get("/pontos/:idUsuario", function (req, res) {
+    estatisticaController.buscarPatente(req, res);
+});
+
 module.exports = router;

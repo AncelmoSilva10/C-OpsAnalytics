@@ -34,7 +34,24 @@ function buscarTotalMortes(req, res) {
         });
 }
 
+function buscarPatente(req, res){
+    var idUsuario = req.params.idUsuario;
+
+    estatisticaModel.buscarPatente(idUsuario) 
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado[0]);
+            } else {
+                res.status(204).send("Nenhum resultado!");
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     buscarTotalAbates,
-    buscarTotalMortes
+    buscarTotalMortes,
+    buscarPatente
 };
