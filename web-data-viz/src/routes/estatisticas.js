@@ -19,4 +19,8 @@ router.get("/vitorias/:idUsuario", function (req, res) {
     estatisticaController.buscarWinRating(req, res);
 });
 
+router.get("/killsPorMapa/:idUsuario", function (req, res) {
+    estatisticaController.buscarKillsPorMapa(req, res);
+});
+
 module.exports = router;

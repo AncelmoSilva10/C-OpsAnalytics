@@ -98,30 +98,8 @@
                             class="informacoes_historico">Mapa</span><span class="informacoes_historico">Kills
                         </span><span class="informacoes_historico">Mortes</span>
                     </div>
-                    <div class="historico-individual">
-                        <div class="fundo_status"><span class="informacoes_historico" id="status_resultado">Vitória
-                            </span></div><span class="informacoes_historico" id="nome_mapa">BUREAU </span><span
-                            class="informacoes_historico" id="kills_status">23 </span><span
-                            class="informacoes_historico" id="morte_status">18</span>
-                    </div>
-                    <div class="historico-individual">
-                        <div class="fundo_status"><span class="informacoes_historico" id="status_resultado">Vitória
-                            </span></div><span class="informacoes_historico" id="nome_mapa">BUREAU </span><span
-                            class="informacoes_historico" id="kills_status">23 </span><span
-                            class="informacoes_historico" id="morte_status">18</span>
-                    </div>
-                    <div class="historico-individual">
-                        <div class="fundo_status"><span class="informacoes_historico" id="status_resultado">Vitória
-                            </span></div><span class="informacoes_historico" id="nome_mapa">BUREAU </span><span
-                            class="informacoes_historico" id="kills_status">23 </span><span
-                            class="informacoes_historico" id="morte_status">18</span>
-                    </div>
-                    <div class="historico-individual">
-                        <div class="fundo_status"><span class="informacoes_historico" id="status_resultado">Vitória
-                            </span></div><span class="informacoes_historico" id="nome_mapa">BUREAU </span><span
-                            class="informacoes_historico" id="kills_status">23 </span><span
-                            class="informacoes_historico" id="morte_status">18</span>
-                    </div>
+
+
                 </div>
                 <div class="alerta">
                     <h1>Alerta</h1>
@@ -151,6 +129,7 @@
         exibirMortes();
         buscarPontos();
         exibirWinRating();
+        exibirKillsPorMapa();
     }
 
     let kills = 0;
@@ -197,7 +176,7 @@
         fetch(`/estatisticas/vitorias/${idUsuario}`).then(res => {
             res.json().then(json => {
                 winRating = json.win_rate;
-                id_win_rating.innerHTML = winRating+'%';
+                id_win_rating.innerHTML = winRating + '%';
             })
         })
     }
@@ -272,6 +251,31 @@
             nome_patente.innerHTML = `Elite Ops <span style="color: #FFC116">${pontos}</span>`;
             imagem_patente.innerHTML = '<img src="' + patentesOrdem[9] + '">';
         }
+    }
+
+    function exibirKillsPorMapa() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/killsPorMapa/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                for (let i = 0; i < json.length; i++) {
+                    let linha = json[i];
+                    let status = linha.resultado;
+                    let nome_mapa_historico = linha.nome_mapa;
+                    let total_kills_historico = linha.total_kills;
+
+                    let lista_historico = document.createElement("div");
+                    lista_historico.classList.add("historico-individual");
+                    lista_historico.innerHTML = `
+                        <div class="fundo_status"><span class="informacoes_historico" id="status_resultado"> ${status == 0 ? "Derrota" : "Vitoria"}
+                            </span></div><span class="informacoes_historico" id="nome_mapa">${nome_mapa_historico} </span><span
+                            class="informacoes_historico" id="kills_status">${total_kills_historico} </span><span
+                            class="informacoes_historico" id="morte_status">18</span>
+                    `;
+
+                    document.querySelector(".historico").appendChild(lista_historico);
+                }
+            })
+        })
     }
 
 
