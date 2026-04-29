@@ -260,16 +260,20 @@
                 for (let i = 0; i < json.length; i++) {
                     let linha = json[i];
                     let status = linha.resultado;
-                    let nome_mapa_historico = linha.nome_mapa;
+                    let nome_mapa_historico = linha.mapa_partida;
                     let total_kills_historico = linha.total_kills;
+                    let total_mortes_historico = linha.total_mortes;
+
+                    let textoStatus = linha.resultado == 0 ? "Derrota" : "Vitoria";
+                    let corFundo = linha.resultado == 0 ? "#d1313d" : "#8bc59b";
 
                     let lista_historico = document.createElement("div");
                     lista_historico.classList.add("historico-individual");
                     lista_historico.innerHTML = `
-                        <div class="fundo_status"><span class="informacoes_historico" id="status_resultado"> ${status == 0 ? "Derrota" : "Vitoria"}
+                        <div class="fundo_status" style="background-color: ${corFundo}"><span class="informacoes_historico" id="status_resultado"> ${textoStatus}
                             </span></div><span class="informacoes_historico" id="nome_mapa">${nome_mapa_historico} </span><span
                             class="informacoes_historico" id="kills_status">${total_kills_historico} </span><span
-                            class="informacoes_historico" id="morte_status">18</span>
+                            class="informacoes_historico" id="morte_status">${total_mortes_historico}</span>
                     `;
 
                     document.querySelector(".historico").appendChild(lista_historico);

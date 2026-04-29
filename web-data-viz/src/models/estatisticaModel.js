@@ -57,18 +57,17 @@ function buscarKillsPorMapa(idUsuario) {
     console.log("ACESSEI O PARTIDA MODEL \n function buscarKillsPorMapa():", idUsuario);
 
     var instrucaoSql = `
-        SELECT 
-            p.resultado AS resultado, 
-            m.nome_mapa AS nome_mapa, 
-            COUNT(po.tipo_evento) AS total_kills 
-        FROM partida p
-            INNER JOIN mapa m ON m.idMapa = p.fk_mapa
-            INNER JOIN round r ON r.fk_partida = p.idPartida
-            INNER JOIN posicao_evento po ON r.idRound = po.fk_round
-        WHERE p.fk_usuario = ${idUsuario} AND po.tipo_evento = 'Abate' 
-        GROUP BY p.idPartida, p.resultado, m.nome_mapa 
-        ORDER BY p.idPartida DESC 
-        LIMIT 4;
+        SELECT p.resultado AS resultado,
+    SUM(CASE WHEN po.tipo_evento = 'Abate' THEN 1 ELSE 0 END) AS total_kills,
+    SUM(CASE WHEN po.tipo_evento = 'Morte' THEN 1 ELSE 0 END) AS total_mortes,
+     m.nome_mapa AS 'mapa_partida'
+FROM partida p
+	INNER JOIN mapa m ON p.fk_mapa = m.idmapa
+	INNER JOIN round r ON r.fk_partida = p.idpartida
+	INNER JOIN posicao_evento po ON po.fk_round = r.idround
+		WHERE p.fk_usuario = ${idUsuario}
+		GROUP BY p.idpartida, m.nome_mapa, p.resultado
+		ORDER BY p.idpartida DESC LIMIT 4;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
