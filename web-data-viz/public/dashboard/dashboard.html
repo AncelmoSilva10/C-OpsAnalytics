@@ -197,7 +197,7 @@
         fetch(`/estatisticas/vitorias/${idUsuario}`).then(res => {
             res.json().then(json => {
                 winRating = json.win_rate;
-                id_win_rating.innerHTML = winRating;
+                id_win_rating.innerHTML = winRating+'%';
             })
         })
     }
