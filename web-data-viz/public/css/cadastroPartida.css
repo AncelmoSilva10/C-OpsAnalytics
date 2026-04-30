@@ -6,13 +6,10 @@
 }
 
 
-
-
-
 /* Caixa de Cadastro da partida*/
 .conteudo-cadastro-partida{
     width: 50%;
-    height: 80%;
+    height: 100%;
     background-color: rgb(36, 59, 92, 0.8);
     border: 2px solid #7F96B3;
     border-radius: 20px;

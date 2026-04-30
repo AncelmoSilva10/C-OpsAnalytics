@@ -23,7 +23,7 @@
     <div class="conteudo-total">
         <div class="conteudo-navbar">
             <div class="navbar">
-                <img src="../assets/home/logo-white.png" alt="">
+                <a class="link_logo_home" href="dashboard.html"><img src="../assets/home/logo-white.png" alt=""></a>
                 <div class="titulo-nome">
                     <h2>Bem vindo,<span class="nome-usuario" id="usuario">Stylish!</span></h1>
                 </div>
@@ -78,7 +78,7 @@
                     <div id="imagem_patente"></div>
                 </div>
                 <div class="kpi">
-                    <h1 class="metricas_kills">KD: </h1>
+                    <h1>Kill-Death (KD)</h1>
                     <span id="kd_player"></span>
                     <p class="metricas_kills">Total de Kills: </p><span id="total_abates_player"></span>
                     <p class="metricas_kills">Total de Mortes: </p><span id="total_mortes_player"></span>
@@ -107,7 +107,24 @@
             </div>
             <div class="conteudo-curiosidade">
                 <div class="curiosidades-estatistica">
-                    <h1>Curiosidades</h1>
+                    <div class="bloco-curiosidade">
+                        <img src="../assets/armamento/AK47.png">
+                        <h3>Favorita</h3>
+                        <p>AK-47</p>
+                        <p class="metricas_kills" id="kill_total_com_arma">(455 kills)</p>
+                    </div>
+
+                    <div class="bloco-curiosidade-mapa-melhor">
+                        <h3 class="titulo-melhor-mapa">Melhor Mapa</h3>
+                        <p id="nome_mapa_melhor">Bureau</p>
+                        <p class="rate_mapa">80% Win Rate</p>
+                    </div>
+
+                    <div class="bloco-curiosidade-mapa-pior">
+                        <h3 class="titulo-pior-mapa">Pior Mapa</h3>
+                        <p id="nome_mapa_pior">Soar</p>
+                        <p class="rate_mapa">15% Win Rate</p>
+                    </div>
                 </div>
             </div>
         </div>
