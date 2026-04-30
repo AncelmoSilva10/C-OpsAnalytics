@@ -31,7 +31,7 @@ function buscarPatente(idUsuario) {
     var instrucaoSql = `
         SELECT  (u.qt_pontos + p.qt_pontos) AS pontos_atuais FROM usuario u 
 	        INNER JOIN partida p ON p.fk_usuario = u.idUsuario
-	WHERE u.idUsuario = ${idUsuario} LIMIT 1;
+	WHERE u.idUsuario = ${idUsuario} ORDER BY pontos_atuais LIMIT 1;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -74,10 +74,25 @@ FROM partida p
     return database.executar(instrucaoSql);
 }
 
+function buscarArmaUtilizada(idUsuario) {
+    console.log("ACESSEI O PARTIDA MODEL \n function buscarArmaUtilizada():", idUsuario);
+
+    var instrucaoSql = `
+        SELECT a.tipo_armamento, COUNT(po.fk_armamento) AS total_utilizada, a.imagem_url_armamento FROM armamento a
+	        INNER JOIN posicao_evento po ON a.idarmamento = po.fk_armamento
+                WHERE po.fk_usuario = ${idUsuario}
+		            GROUP BY a.idarmamento ORDER BY total_utilizada DESC LIMIT 1;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarTotalAbates,
     buscarTotalMortes,
     buscarPatente,
     buscarWinRating,
-    buscarKillsPorMapa
+    buscarKillsPorMapa,
+    buscarArmaUtilizada
 };

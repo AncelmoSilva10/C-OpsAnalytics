@@ -23,4 +23,8 @@ router.get("/killsPorMapa/:idUsuario", function (req, res) {
     estatisticaController.buscarKillsPorMapa(req, res);
 });
 
+router.get("/armaUtilizada/:idUsuario", function (req, res) {
+    estatisticaController.buscarArmaUtilizada(req, res);
+});
+
 module.exports = router;

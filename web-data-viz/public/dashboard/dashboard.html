@@ -108,10 +108,12 @@
             <div class="conteudo-curiosidade">
                 <div class="curiosidades-estatistica">
                     <div class="bloco-curiosidade">
-                        <img src="../assets/armamento/AK47.png">
+                        <div id="img_arma_utiliziada">
+
+                        </div>
                         <h3>Favorita</h3>
-                        <p>AK-47</p>
-                        <p class="metricas_kills" id="kill_total_com_arma">(455 kills)</p>
+                        <p id="nome_arma"></p>
+                        <p class="metricas_kills" id="kill_total_com_arma"></p>
                     </div>
 
                     <div class="bloco-curiosidade-mapa-melhor">
@@ -147,6 +149,7 @@
         buscarPontos();
         exibirWinRating();
         exibirKillsPorMapa();
+        exibirArmaMaisUtilizada();
     }
 
     let kills = 0;
@@ -295,6 +298,26 @@
 
                     document.querySelector(".historico").appendChild(lista_historico);
                 }
+            })
+        })
+    }
+
+    function exibirArmaMaisUtilizada() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/armaUtilizada/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                console.log(json);
+                let arma = json[0].tipo_armamento;
+                let kilss_com_arma = json[0].total_utilizada;
+                let imagem_arma = json[0].imagem_url_armamento;
+
+                console.log(arma);
+                console.log(kilss_com_arma);
+                console.log(imagem_arma);
+
+                img_arma_utiliziada.innerHTML = `<img src="${imagem_arma}">`;
+                nome_arma.innerHTML = arma;
+                kill_total_com_arma.innerHTML = `(${kilss_com_arma} kills)`;
             })
         })
     }

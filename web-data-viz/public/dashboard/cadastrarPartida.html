@@ -154,6 +154,19 @@
                             <option value="Morte">Morte</option>
                         </select>
 
+                        <p class="texto-cadastro">Qual arma utilizada?:</p>
+                        <select class="selecionar_items" id="ipt_armaUtilizada">
+                            <option value="1">Rifle - Coalition (M4)</option>
+                            <option value="2">Rifle - Breach (AK-47)</option>
+                            <option value="3">Pistola - Coalition (P250)</option>
+                            <option value="4">Pistola - Breach (GSR 1911)</option>
+                            <option value="5">Pistola - Especial (Desert Eagle)</option>
+                            <option value="6">SMG - Coalition (MP5)</option>
+                            <option value="7">SMG - Breach (MP7)</option>
+                            <option value="8">Sniper - Universal (Uratio)</option>
+                            <option value="9">Corpo a Corpo - Universal (Knife)</option>
+                        </select>
+
                         <p class="texto-cadastro">Local do Mapa:</p>
                         <select class="selecionar_items" id="ipt_parteDoMapa">
                             <option value="1">Bomb A</option>
@@ -210,7 +223,7 @@
                 let resultado = Number(resultadoRaw);
                 let rTR = Number(roundsTR);
                 let rCT = Number(roundsCT);
-                 pontos = Number(pontos);
+                pontos = Number(pontos);
 
 
                 if (rCT < 0 || rCT > 13 || rTR < 0 || rTR > 13) {
@@ -270,6 +283,7 @@
             function cadastrarRound() {
                 let vitoria = ipt_vitoria.value;
                 let duracao = ipt_duracao_round.value;
+                let arma_utilizada = ipt_armaUtilizada.value;
 
 
                 if (duracao == "") {
@@ -315,7 +329,7 @@
                                     yServer: item.y,
                                     usuarioServer: sessionStorage.ID_USUARIO,
                                     roundServer: idRound,
-                                    armaServer: 1, //To deixando fixo, 1 porque salvei no banco so uma arma para teste
+                                    armaServer: arma_utilizada, 
                                     sessaoServer: item.parte
                                 })
                             });
