@@ -102,18 +102,17 @@
 
                 </div>
                 <div class="alerta">
-                    <div class="fundo-alerta">
-                        <h2 class="mensagem-alerta">Bem vindo de Volta!</h2>
+                    <div class="fundo-alerta" id="fundo_titulo_alerta">
+                        <h2 class="mensagem-alerta" id="saudacao_alerta"></h2>
                     </div>
                     <div class="imagem-alerta">
-                        <img src="../assets/dashboard/liberadoIcone.png" alt="">
+                        <img id="imagem_alerta_icone" src="" alt="">
                     </div>
                     <div class="descricao-alerta">
-                        <p>Sentimos sua falta no campo de batalha. Lembre-se: o jogo é um lugar para relaxar e se divertir.
-                             Quando estiver pronto, sua posição está guardada!</p>
+                        <p id="texto_descricao"></p>
                     </div>
                     <div class="historico-alerta">
-                        <p>Última partida há <span id="dias">7</span> dias</p>
+                        <p id="texto_embaixo_alerta"></p>
                     </div>
                 </div>
             </div>
@@ -163,6 +162,7 @@
         exibirKillsPorMapa();
         exibirArmaMaisUtilizada();
         exibirMapsWinRating();
+        exibirFrequencia();
     }
 
     let kills = 0;
@@ -373,12 +373,43 @@
         })
     }
 
-    //Texto par eu utilizar, caso ele exceda o limite de 3 partidas, jogadas por dia.
-    // Título: Missão Cumprida por Hoje!
+    function exibirFrequencia() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/frequencia/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                let utlimo_dia_jogado = json[0].dia_formatado;
+                let quantidade_partidas = json[0].quantidade;
 
-    // Descricao: Você já dominou o servidor hoje, agora é hora de dominar suas obrigações. Lembre-se: o equilíbrio entre o jogo e a vida real é o que faz um pro-player de verdade.
+                const hoje = new Date().toLocaleDateString('pt-BR');
 
-    // Mensagem em baixo: Excedeu o limite diário definido.
+                let divAlerta = document.getElementById("fundo_titulo_alerta");
+                let imgSituacao = document.getElementById("imagem_alerta_icone");
+
+                if (utlimo_dia_jogado === hoje) {
+                    if (quantidade_partidas >= 3) {
+                        divAlerta.style.backgroundColor = "#FFC116";
+                        imgSituacao.src = "../assets/dashboard/muitoTempoIcone.png"
+                        saudacao_alerta.innerHTML = `Missão Cumprida por Hoje!`;
+                        texto_descricao.innerHTML = `Você já dominou o servidor hoje, agora é hora de dominar suas obrigações. Lembre-se: o equilíbrio entre o jogo e a vida real é o que faz um pro-player de verdade.`;
+                        texto_embaixo_alerta.innerHTML = `Excedeu o limite diário definido. Pré-Definido: 3, Jogados ${quantidade_partidas}`;
+                    } else {
+                        divAlerta.style.backgroundColor = "#0c0cff";
+                        imgSituacao.src = "../assets/dashboard/liberadoIcone.png"
+                        saudacao_alerta.innerHTML = `Bem vindo de Volta!`;
+                        texto_descricao.innerHTML = `Sentimos sua falta no campo de batalha. Lembre-se: o jogo é um lugar para relaxar e se divertir. Quando estiver pronto, sua posição está guardada!`;
+                        texto_embaixo_alerta.innerHTML = `Última partida jogada no dia ${utlimo_dia_jogado}. Pré-Definido: 3, Jogados ${quantidade_partidas}`;
+                    }
+                } else {
+                    divAlerta.style.backgroundColor = "#0c0cff";
+                    imgSituacao.src = "../assets/dashboard/liberadoIcone.png"
+                    saudacao_alerta.innerHTML = `Bem vindo de Volta!`;
+                    texto_descricao.innerHTML = `Sentimos sua falta no campo de batalha. Lembre-se: o jogo é um lugar para relaxar e se divertir. Quando estiver pronto, sua posição está guardada!`;
+                    texto_embaixo_alerta.innerHTML = `Última partida jogada no dia ${utlimo_dia_jogado}.`;
+                }
+            })
+        })
+    }
+   
 
 
     atualizarDash();

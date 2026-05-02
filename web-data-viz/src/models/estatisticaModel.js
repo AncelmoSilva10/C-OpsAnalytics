@@ -100,6 +100,17 @@ function buscarMapasWinRating(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function buscarFrequencia(idUsuario) {
+    console.log("ACESSEI O PARTIDA MODEL \n function buscarMapasWinRating():", idUsuario);
+
+    var instrucaoSql = `
+    SELECT DATE_FORMAT(data_partida, '%d/%m/%Y') AS dia_formatado, COUNT(*) AS quantidade FROM partida
+        WHERE fk_usuario = 1 GROUP BY dia_formatado ORDER BY MAX(data_partida) DESC LIMIT 1;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarTotalAbates,
     buscarTotalMortes,
@@ -107,5 +118,6 @@ module.exports = {
     buscarWinRating,
     buscarKillsPorMapa,
     buscarArmaUtilizada,
-    buscarMapasWinRating
+    buscarMapasWinRating,
+    buscarFrequencia
 };

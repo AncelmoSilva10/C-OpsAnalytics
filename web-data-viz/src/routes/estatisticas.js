@@ -31,4 +31,8 @@ router.get("/mapasWinRating/:idUsuario", function (req, res) {
     estatisticaController.buscarMapasWinRating(req, res);
 });
 
+router.get("/frequencia/:idUsuario", function (req, res) {
+    estatisticaController.buscarFrequencia(req, res);
+});
+
 module.exports = router;
