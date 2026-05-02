@@ -116,16 +116,16 @@
                         <p class="metricas_kills" id="kill_total_com_arma"></p>
                     </div>
 
-                    <div class="bloco-curiosidade-mapa-melhor">
+                    <div class="bloco-curiosidade-mapa-melhor" id="mapa_melhor_fundo">
                         <h3 class="titulo-melhor-mapa">Melhor Mapa</h3>
-                        <p id="nome_mapa_melhor">Bureau</p>
-                        <p class="rate_mapa">80% Win Rate</p>
+                        <p id="nome_mapa_melhor"></p>
+                        <p class="rate_mapa" id="rate_mapa_melhor"></p>
                     </div>
 
-                    <div class="bloco-curiosidade-mapa-pior">
+                    <div class="bloco-curiosidade-mapa-pior" id="mapa_pior_fundo">
                         <h3 class="titulo-pior-mapa">Pior Mapa</h3>
-                        <p id="nome_mapa_pior">Soar</p>
-                        <p class="rate_mapa">15% Win Rate</p>
+                        <p id="nome_mapa_pior"></p>
+                        <p class="rate_mapa" id="rate_mapa_pior"></p>
                     </div>
                 </div>
             </div>
@@ -150,6 +150,7 @@
         exibirWinRating();
         exibirKillsPorMapa();
         exibirArmaMaisUtilizada();
+        exibirMapsWinRating();
     }
 
     let kills = 0;
@@ -306,18 +307,56 @@
         var idUsuario = sessionStorage.ID_USUARIO;
         fetch(`/estatisticas/armaUtilizada/${idUsuario}`).then(res => {
             res.json().then(json => {
-                console.log(json);
                 let arma = json[0].tipo_armamento;
                 let kilss_com_arma = json[0].total_utilizada;
                 let imagem_arma = json[0].imagem_url_armamento;
 
-                console.log(arma);
-                console.log(kilss_com_arma);
-                console.log(imagem_arma);
-
                 img_arma_utiliziada.innerHTML = `<img src="${imagem_arma}">`;
                 nome_arma.innerHTML = arma;
                 kill_total_com_arma.innerHTML = `(${kilss_com_arma} kills)`;
+            })
+        })
+    }
+
+    function exibirMapsWinRating() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/mapasWinRating/${idUsuario}`).then(res => {
+            res.json().then(json => {
+
+
+                let fotosRanked = [
+                    "../assets/mapas/bureau.png",
+                    "../assets/mapas/canals.png",
+                    "../assets/mapas/grounded.png",
+                    "../assets/mapas/legacy.png",
+                    "../assets/mapas/raid.png",
+                    "../assets/mapas/plaza.png",
+                    "../assets/mapas/port.png",
+                    "../assets/mapas/soar.png",
+                    "../assets/mapas/village.png"
+                ];
+
+                //Melhor mapa
+                let melhor_mapa = json[0].nome_mapa;
+                let win_rate_melhor = json[0].win_ratign;
+                let indice_mapa = json[0].idMapa;
+                let mapa_foto = fotosRanked[indice_mapa - 1];
+
+                document.getElementById('mapa_melhor_fundo').style.backgroundImage = `url(${mapa_foto})`;
+
+                nome_mapa_melhor.innerHTML = melhor_mapa;
+                rate_mapa_melhor.innerHTML = `${win_rate_melhor}% Win Rate`;
+
+                // Pior Mapa
+                let pior_mapa = json[json.length - 1].nome_mapa;
+                let win_rate_pior = json[json.length - 1].win_ratign;
+                let indice_mapa_pior = json[json.length - 1].idMapa;
+                let mapa_foto_pior = fotosRanked[indice_mapa_pior - 1];
+
+                document.getElementById('mapa_pior_fundo').style.backgroundImage = `url(${mapa_foto_pior})`;
+
+                nome_mapa_pior.innerHTML = pior_mapa;
+                rate_mapa_pior.innerHTML = `${win_rate_pior}% Win Rate`;
             })
         })
     }

@@ -27,4 +27,8 @@ router.get("/armaUtilizada/:idUsuario", function (req, res) {
     estatisticaController.buscarArmaUtilizada(req, res);
 });
 
+router.get("/mapasWinRating/:idUsuario", function (req, res) {
+    estatisticaController.buscarMapasWinRating(req, res);
+});
+
 module.exports = router;

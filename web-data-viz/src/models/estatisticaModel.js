@@ -88,11 +88,24 @@ function buscarArmaUtilizada(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function buscarMapasWinRating(idUsuario) {
+    console.log("ACESSEI O PARTIDA MODEL \n function buscarMapasWinRating():", idUsuario);
+
+    var instrucaoSql = `
+    SELECT p.fk_mapa, m.nome_mapa, m.idMapa, COUNT(p.fk_mapa) AS quantidade_mapa, ROUND((SUM(p.resultado) / COUNT(p.fk_mapa) * 100))AS win_ratign FROM partida p
+	    INNER JOIN mapa m ON p.fk_mapa = m.idMapa 
+		    WHERE p.fk_usuario = ${idUsuario} GROUP BY p.fk_mapa ORDER BY win_ratign DESC;`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarTotalAbates,
     buscarTotalMortes,
     buscarPatente,
     buscarWinRating,
     buscarKillsPorMapa,
-    buscarArmaUtilizada
+    buscarArmaUtilizada,
+    buscarMapasWinRating
 };
