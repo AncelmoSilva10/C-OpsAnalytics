@@ -102,7 +102,19 @@
 
                 </div>
                 <div class="alerta">
-                    <h1>Alerta</h1>
+                    <div class="fundo-alerta">
+                        <h2 class="mensagem-alerta">Bem vindo de Volta!</h2>
+                    </div>
+                    <div class="imagem-alerta">
+                        <img src="../assets/dashboard/liberadoIcone.png" alt="">
+                    </div>
+                    <div class="descricao-alerta">
+                        <p>Sentimos sua falta no campo de batalha. Lembre-se: o jogo é um lugar para relaxar e se divertir.
+                             Quando estiver pronto, sua posição está guardada!</p>
+                    </div>
+                    <div class="historico-alerta">
+                        <p>Última partida há <span id="dias">7</span> dias</p>
+                    </div>
                 </div>
             </div>
             <div class="conteudo-curiosidade">
@@ -360,6 +372,13 @@
             })
         })
     }
+
+    //Texto par eu utilizar, caso ele exceda o limite de 3 partidas, jogadas por dia.
+    // Título: Missão Cumprida por Hoje!
+
+    // Descricao: Você já dominou o servidor hoje, agora é hora de dominar suas obrigações. Lembre-se: o equilíbrio entre o jogo e a vida real é o que faz um pro-player de verdade.
+
+    // Mensagem em baixo: Excedeu o limite diário definido.
 
 
     atualizarDash();

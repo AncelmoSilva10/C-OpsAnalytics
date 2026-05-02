@@ -333,3 +333,54 @@
     font-size: 0.8rem;
     font-weight: bold;
 }
+
+/* Parte do Alerta */
+
+.alerta{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.fundo-alerta{
+    height: 10%;
+    width: 95%;
+
+    background-color: rgb(93, 93, 255);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10px;
+    border: 1px solid white;
+}
+
+.imagem-alerta{
+    height: 20%;
+    width: 95%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagem-alerta img{
+    width: 30%;
+}
+
+.descricao-alerta{
+    height: 40%;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.historico-alerta{
+    height: auto;
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
