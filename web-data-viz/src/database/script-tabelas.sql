@@ -41,6 +41,7 @@ CREATE TABLE partida (
   duracao_media INT,
   rounds_TR INT DEFAULT 0,
   rounds_CT INT DEFAULT 0,
+  qt_pontos INT NOT NULL,
   resultado TINYINT,
   CONSTRAINT fk_partida_result CHECK(resultado IN (1,0)),
   fk_usuario INT NOT NULL,
@@ -85,6 +86,7 @@ SELECT * FROM sesao_mapa;
 SELECT * FROM round;
 SELECT * FROM armamento;
 SELECT * FROM posicao_evento;
+SELECT * FROM mapa;
 
 -- Cadastro dos Mapas
 INSERT INTO mapa (nome_mapa, imagem_url) 
@@ -192,12 +194,12 @@ INSERT INTO sesao_mapa (nome_sesao, fk_mapa) VALUES
     
  INSERT INTO armamento (tipo_armamento, imagem_url_armamento) 
 	VALUES 
-		('Rifle - Coalition (M4)', 'assets/armamento/m4.png'),
-		('Rifle - Breach (AK-47)', 'assets/armamento/ak47.png'),
-		('Pistola - Coalition (P250)', 'assets/armamento/p250.png'),
-		('Pistola - Breach (GSR 1911)', 'assets/armamento/gsr.png'),
-		('Pistola - Especial (Desert Eagle)', 'assets/armamento/deagle.png'),
-		('SMG - Coalition (MP5)', 'assets/armamento/mp5.png'),
-		('SMG - Breach (MP7)', 'assets/armamento/mp7.png'),
-		('Sniper - Universal (Uratio)', 'assets/armamento/uratio.png'),
-		('Corpo a Corpo - Universal (Knife)', 'assets/armamento/knife.png');   
+		('Rifle - Coalition (M4)', '../assets/armamento/m4.png'),
+		('Rifle - Breach (AK-47)', '../assets/armamento/ak47.png'),
+		('Pistola - Coalition (P250)', '../assets/armamento/p250.png'),
+		('Pistola - Breach (GSR 1911)', '../assets/armamento/gsr.png'),
+		('Pistola - Especial (Desert Eagle)', '../assets/armamento/deagle.png'),
+		('SMG - Coalition (MP5)', '../assets/armamento/mp5.png'),
+		('SMG - Breach (MP7)', '../assets/armamento/mp7.png'),
+		('Sniper - Universal (Uratio)', '../assets/armamento/uratio.png'),
+		('Corpo a Corpo - Universal (Knife)', '../assets/armamento/knife.png');   
