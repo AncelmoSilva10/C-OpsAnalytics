@@ -9,25 +9,24 @@
     <link rel="stylesheet" href="../css/navbarDashboard.css">
     <link rel="stylesheet" href="../css/cadastroPartida.css">
 
-    <!-- Fontes pega do Google fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/sessao.js"></script>
 </head>
 
-<script src="../js/sessao.js"></script>
-
 <body>
-
-
     <div class="conteudo-total">
         <div class="conteudo-navbar">
             <div class="navbar">
-                <a class="link_logo_home" href="dashboard.html"><img src="../assets/home/logo-white.png" alt=""></a>
+                <a class="link_logo_home" href="dashboard.html">
+                    <img src="../assets/home/logo-white.png" alt="Logo">
+                </a>
                 <div class="titulo-nome">
-                    <h2>Bem vindo,<span class="nome-usuario" id="usuario">Stylish!</span></h1>
+                    <h2>Bem vindo, <span class="nome-usuario" id="usuario">Stylish!</span></h2>
                 </div>
                 <div class="links-dashboard">
                     <div class="pagina">
@@ -39,7 +38,7 @@
                         </a>
                     </div>
                     <div class="pagina">
-                        <a href="">
+                        <a href="analise.html">
                             <div class="texto-pagina">
                                 <h2 class="nome-pagina">Analisar</h2>
                                 <img src="../assets/dashboard/mapeamento.png" alt="">
@@ -120,14 +119,10 @@
                 <div class="links-butao">
                     <button class="buttao-funcao-cadastrar" onclick="cadastrarPartida()">Cadastrar Partida</button>
                 </div>
-
                 <div id="div_aguardar" class="loading-div" style="display: none;">
                     <img src="../assets/aguarde-orange.gif" id="loading-gif">
                 </div>
-
             </div>
-
-            <!-- A segunda tela, ela aparece so quando cadastra, pois ela esta com dispaky como none -->
 
             <div class="conteudo-cadastro-partida" id="tela_round" style="display: none;">
                 <div class="titulo-cadastro-partida">
@@ -179,7 +174,6 @@
                         </select>
 
                         <button class="botao-evento" onclick="adicionarEvento()">Adicionar Evento</button>
-
                         <div id="lista_eventos"></div>
                     </div>
                 </div>
@@ -189,211 +183,240 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <script>
+        validarSessao();
 
-        <script>
+        let idPartida = null;
+        let numeroRoundAtual = 1;
+        let listaEventos = [];
 
-            validarSessao();
+        function cadastrarPartida() {
+            let data_partida = ipt_dataPartida.value;
+            let duracao = ipt_duracaoMedia.value;
+            let roundsTR = ipt_roundTR.value;
+            let roundsCT = ipt_roundCT.value;
+            let pontos = ipt_pontos.value;
+            let mapaRaw = ipt_mapa.value;
+            let resultadoRaw = ipt_resultado.value;
+            let usuario = sessionStorage.ID_USUARIO;
 
-
-            let idPartida = null;
-            let numeroRoundAtual = 1;
-            let listaEventos = [];
-
-            function cadastrarPartida() {
-
-                aguardar();
-
-                let data_partida = ipt_dataPartida.value;
-                let duracao = ipt_duracaoMedia.value;
-                let roundsTR = ipt_roundTR.value;
-                let roundsCT = ipt_roundCT.value;
-                let pontos = ipt_pontos.value;
-                let mapaRaw = ipt_mapa.value;
-                let resultadoRaw = ipt_resultado.value;
-                let usuario = sessionStorage.ID_USUARIO;
-
-                if (duracao == "" || roundsTR == "" || roundsCT == "" || pontos == "" || mapaRaw == "" || resultadoRaw == "") {
-                    alert("Preencha todos os campos para cadastrar!");
-                    return;
-                }
-
-
-                let mapa = Number(mapaRaw);
-                let resultado = Number(resultadoRaw);
-                let rTR = Number(roundsTR);
-                let rCT = Number(roundsCT);
-                pontos = Number(pontos);
-
-
-                if (rCT < 0 || rCT > 13 || rTR < 0 || rTR > 13) {
-                    alert("Insira uma quantidade de rounds válida (0 a 13)");
-                    return;
-                }
-
-                if (data_partida == "") {
-                    data_partida = null;
-                }
-
-                duracao = Number(duracao);
-
-                fetch("/partidas/cadastrar", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        data_partidaServer: data_partida,
-                        duracaoServer: duracao,
-                        roundsTRServer: rTR,
-                        roundsCTServer: rCT,
-                        qtPontosServer: pontos,
-                        resultadoServer: resultado,
-                        usuarioServer: usuario,
-                        mapaServer: mapa
-                    }),
-                }).then(function (resposta) {
-                    console.log("RESPOSTA: ", resposta);
-
-                    if (resposta.ok) {
-                        resposta.json().then(json => {
-                            idPartida = json.insertId;
-                            console.log("ID da partida:", idPartida);
-
-                            finalizarAguardar();
-
-                            setTimeout(() => {
-                                alert("Cadastro de partida realizado!");
-                                tela_partida.style.display = "none";
-                                tela_round.style.display = "block";
-                            }, 2000);
-                        });
-                    } else {
-                        resposta.text().then(texto => {
-                            console.error(texto);
-                            alert("Erro no cadastro: " + texto);
-                        });
-                    }
-                }).catch(function (erro) {
-                    console.log("#ERRO: ", erro);
-                });
-
-                return false;
+            if (duracao == "" || roundsTR == "" || roundsCT == "" || pontos == "" || mapaRaw == "" || resultadoRaw == "") {
+                alert("Preencha todos os campos para cadastrar!");
+                return;
             }
 
+            let mapa = Number(mapaRaw);
+            let resultado = Number(resultadoRaw);
+            let rTR = Number(roundsTR);
+            let rCT = Number(roundsCT);
+            let nPontos = Number(pontos);
 
-            function cadastrarRound() {
-                let vitoria = ipt_vitoria.value;
-                let duracao = ipt_duracao_round.value;
-                let arma_utilizada = ipt_armaUtilizada.value;
+            if (rCT < 0 || rCT > 13 || rTR < 0 || rTR > 13) {
+                alert("Insira uma quantidade de rounds válida (0 a 13)");
+                return;
+            }
 
-
-                if (duracao == "") {
-                    alert("Preencha a duração do round!");
-                    return;
-                }
-
-                if (vitoria == "") {
-                    alert("Preencha quem venceu o round!");
-                    return;
-                }
-
-                // Cadastra o ROUND primeiro
-                fetch("/rounds/cadastrar", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        numeroRoundServer: numeroRoundAtual,
-                        vitoriaServer: vitoria,
-                        duracaoServer: duracao,
-                        partidaServer: idPartida
-                    })
-                })
-                    .then(res => res.json())
-                    .then(json => {
-
-                        let idRound = json.insertId; //Peguei o ID do round, mesma lǵocia, q fiz para pegar o da partida e vincular a ele
-                        console.log("ID do round:", idRound);
-
-                        // // Agora salva TODOS os eventos desse round
-                        for (let i = 0; i < listaEventos.length; i++) {
-
-                            let item = listaEventos[i];
-
-                            console.log(item.y);
-
-                            fetch("/eventos/cadastrar", {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({
-                                    tipoServer: item.tipo,
-                                    xServer: item.x,
-                                    yServer: item.y,
-                                    usuarioServer: sessionStorage.ID_USUARIO,
-                                    roundServer: idRound,
-                                    armaServer: arma_utilizada, 
-                                    sessaoServer: item.parte
-                                })
-                            });
-                        }
-
-                        // Limpa os eventos depois de salvar
-                        listaEventos = [];
-                        lista_eventos.innerHTML = "";
-
-                        // Atualiza para próximo round
-                        numeroRoundAtual++;
-                        span_num_round.innerText = numeroRoundAtual;
-
-                        alert("Round salvo com sucesso!");
-                    })
-                    .catch(erro => {
-                        console.log("Erro ao cadastrar round:", erro);
+            fetch("/partidas/cadastrar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    data_partidaServer: data_partida || null,
+                    duracaoServer: Number(duracao),
+                    roundsTRServer: rTR,
+                    roundsCTServer: rCT,
+                    qtPontosServer: nPontos,
+                    resultadoServer: resultado,
+                    usuarioServer: usuario,
+                    mapaServer: mapa
+                }),
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                        idPartida = json.insertId;
+                        alert("Cadastro de partida realizado!");
+                        tela_partida.style.display = "none";
+                        tela_round.style.display = "block";
                     });
+                } else {
+                    alert("Erro no cadastro da partida.");
+                }
+            }).catch(erro => console.log("#ERRO: ", erro));
+        }
+
+        function adicionarEvento() {
+            let tipo = ipt_tipoEvento.value;
+            let parte = Number(ipt_parteDoMapa.value);
+            let pos = gerarPosicao(parte);
+
+            let evento = {
+                tipo: tipo,
+                x: pos.x,
+                y: pos.y,
+                parte: parte
+            };
+
+            listaEventos.push(evento);
+            lista_eventos.innerHTML += `<p>${tipo} - Região ${parte}</p>`;
+        }
+
+        function gerarPosicao(parteMapa) {
+            let idMapaAtual = ipt_mapa.value;
+
+            // Dicionario com a base das posições de acordo com o mapa, fiz manualmente.
+            let coordenadasPorMapa = {
+                "1": { // Bureau
+                    1: { x: 300, y: 805 },
+                    2: { x: 323, y: 825 },
+                    3: { x: 318, y: 825 },
+                    4: { x: 305, y: 830 },
+                    5: { x: 332, y: 818 },
+                    6: { x: 315, y: 815 },
+                    7: { x: 323, y: 833 }
+                },
+                "2": { // Canals
+                    1: { x: 320, y: 832 },
+                    2: { x: 307, y: 812 },
+                    3: { x: 315, y: 820 },
+                    4: { x: 322, y: 808 },
+                    5: { x: 307, y: 830 },
+                    6: { x: 322, y: 828 },
+                    7: { x: 315, y: 807 }
+                },
+                "3": { // Grounded
+                    1: { x: 308, y: 818 },
+                    2: { x: 325, y: 808 },
+                    3: { x: 315, y: 807 },
+                    4: { x: 320, y: 830 },
+                    5: { x: 318, y: 809 },
+                    6: { x: 310, y: 819 },
+                    7: { x: 328, y: 815 }
+                },
+                "4": { // Legacy
+                    1: { x: 325, y: 817 },
+                    2: { x: 307, y: 817 },
+                    3: { x: 315, y: 820 },
+                    4: { x: 319, y: 828 },
+                    5: { x: 313, y: 808 },
+                    6: { x: 330, y: 820 },
+                    7: { x: 313, y: 818 }
+                },
+                "5": { // Raid
+                    1: { x: 310, y: 823 },
+                    2: { x: 323, y: 823 },
+                    3: { x: 318, y: 820 },
+                    4: { x: 318, y: 808 },
+                    5: { x: 318, y: 833 },
+                    6: { x: 307, y: 820 },
+                    7: { x: 327, y: 820 }
+                },
+                "6": { // Plaza
+                    1: { x: 308, y: 810 },
+                    2: { x: 320, y: 805 },
+                    3: { x: 320, y: 816 },
+                    4: { x: 318, y: 827 },
+                    5: { x: 314, y: 808 },
+                    6: { x: 308, y: 818 },
+                    7: { x: 328, y: 812 }
+                },
+                "7": { // Port
+                    1: { x: 323, y: 822 },
+                    2: { x: 328, y: 810 },
+                    3: { x: 319, y: 813 },
+                    4: { x: 314, y: 822 },
+                    5: { x: 330, y: 815 },
+                    6: { x: 323, y: 833 },
+                    7: { x: 320, y: 803 }
+                },
+                "8": { // Soar
+                    1: { x: 319, y: 837 },
+                    2: { x: 323, y: 827 },
+                    3: { x: 318, y: 818 },
+                    4: { x: 320, y: 803 },
+                    5: { x: 320, y: 840 },
+                    6: { x: 308, y: 822 },
+                    7: { x: 330, y: 825 }
+                },
+                "9": { // Village
+                    1: { x: 305, y: 823 },
+                    2: { x: 330, y: 825 },
+                    3: { x: 318, y: 820 },
+                    4: { x: 313, y: 808 },
+                    5: { x: 320, y: 837 },
+                    6: { x: 304, y: 815 },
+                    7: { x: 328, y: 815 }
+                }
+            };
+
+            let posBase = coordenadasPorMapa[idMapaAtual][parteMapa] || { x: 500, y: 500 };
+
+            return {
+                x: posBase.x + (Math.random() * 4 - 2), // Varia apenas 2 para esquerda ou 2 para direita
+                y: posBase.y + (Math.random() * 4 - 2)  // Varia apenas 2 para cima ou 2 para baixo
+            };
+        }
+
+        function cadastrarRound() {
+            let vitoria = ipt_vitoria.value;
+            let duracao = ipt_duracao_round.value;
+            let arma = ipt_armaUtilizada.value;
+
+            // Pego o ID do mapa selecionado na primeira tela para o cálculo
+            let idMapaSelecionado = Number(ipt_mapa.value);
+
+            if (duracao == "" || vitoria == "") {
+                alert("Preencha os dados do round!");
+                return;
             }
 
-            // Adiciono eventos, porque ele pode fazer mais de 1kill, para o round (Como kill ou morte), ou seja, 1Round.
-            //POde ter varios eventos
-            function adicionarEvento() {
-                let tipo = ipt_tipoEvento.value;
-                let parte = Number(ipt_parteDoMapa.value);
+            fetch("/rounds/cadastrar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    numeroRoundServer: numeroRoundAtual,
+                    vitoriaServer: vitoria,
+                    duracaoServer: Number(duracao),
+                    partidaServer: idPartida
+                })
+            }).then(res => res.json()).then(json => {
+                let idRound = json.insertId;
 
-                console.log(tipo, parte);
+                // Salva os eventos
+                for (let i = 0; i < listaEventos.length; i++) {
+                    let item = listaEventos[i];
 
-                let pos = gerarPosicao(parte);
+                    /* CÁLCULO DA SESSÃO:
+                       Se idMapa = 1 (Bureau) e item.parte = 1 (Bomb A) -> ((1-1)*7) + 1 = 1
+                       Se idMapa = 5 (Raid) e item.parte = 1 (Bomb A) -> ((5-1)*7) + 1 = 29
+                       Ou seja, todas as posições dos mapas, são da seguinte maneira, na tabela
+                       foi registrado 7 sessões principais, de acordo com o id.
+                    */
+                    let fkSessaoReal = ((idMapaSelecionado - 1) * 7) + Number(item.parte);
 
-                let evento = {
-                    tipo: tipo,
-                    x: pos.x,
-                    y: pos.y,
-                    parte: parte
-                };
+                    fetch("/eventos/cadastrar", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            tipoServer: item.tipo,
+                            xServer: item.x,
+                            yServer: item.y,
+                            usuarioServer: sessionStorage.ID_USUARIO,
+                            roundServer: idRound,
+                            armaServer: arma,
+                            sessaoServer: fkSessaoReal
+                        })
+                    });
+                }
 
-                listaEventos.push(evento);
-
-                lista_eventos.innerHTML += `<p>${tipo} - Região ${parte}</p>`;
-
-                console.log("Eventos:", listaEventos);
-            }
-
-            //Gerando a posição do mapa, e estou utilizando como base cada um dos trechos abaixo(TO focado no BUreau).
-            function gerarPosicao(parteMapa) {
-                const base = {
-                    1: { x: 300, y: 800 }, // Bomb A
-                    2: { x: 600, y: 300 }, // Bomb B
-                    3: { x: 450, y: 500 }, // Meio
-                    4: { x: 200, y: 900 }, // Spawn TR
-                    5: { x: 700, y: 100 }, // Spawn CT
-                    6: { x: 250, y: 600 }, // Fundo A
-                    7: { x: 650, y: 400 }  // Fundo B
-                };
-
-                let pos = base[parteMapa];
-
-                return {
-                    x: pos.x + Math.floor(Math.random() * 40),
-                    y: pos.y + Math.floor(Math.random() * 40)
-                };
-            }
-        </script>
+                listaEventos = [];
+                lista_eventos.innerHTML = "";
+                numeroRoundAtual++;
+                span_num_round.innerText = numeroRoundAtual;
+                alert("Round salvo!");
+            });
+        }
+    </script>
 </body>
 
 </html>

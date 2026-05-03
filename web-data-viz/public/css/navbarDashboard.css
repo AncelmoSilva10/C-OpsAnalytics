@@ -116,3 +116,14 @@
     padding: 20px;
     background-color: #1F2937;
 }
+
+#meuMapaAnalytics {
+    
+    background-image: url('../assets/mapas/bureau.png'); 
+    background-size: cover;
+    background-position: center;
+    
+    
+    width: 800px; 
+    height: 800px; 
+}

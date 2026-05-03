@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics | Dash</title>
+
+    <link rel="stylesheet" href="../css/navbarDashboard.css">
+    <link rel="stylesheet" href="../css/analiseDashboard.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<script src="../js/sessao.js"></script>
+
+<body>
+
+    <div class="conteudo-total">
+        <div class="conteudo-navbar">
+            <div class="navbar">
+                <a class="link_logo_home" href="dashboard.html"><img src="../assets/home/logo-white.png" alt=""></a>
+                <div class="titulo-nome">
+                    <h2>Bem vindo,<span class="nome-usuario" id="usuario">Stylish!</span></h1>
+                </div>
+                <div class="links-dashboard">
+                    <div class="pagina">
+                        <a href="cadastrarPartida.html">
+                            <div class="texto-pagina">
+                                <h2 class="nome-pagina">Cadastrar</h2>
+                                <img src="../assets/dashboard/cadastro-cops.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="pagina">
+                        <a href="analise.html">
+                            <div class="texto-pagina">
+                                <h2 class="nome-pagina">Analisar</h2>
+                                <img src="../assets/dashboard/mapeamento.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="pagina">
+                        <a href="">
+                            <div class="texto-pagina">
+                                <h2 class="nome-pagina">Conquistas</h2>
+                                <img src="../assets/dashboard/titulos.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="pagina">
+                        <a href="">
+                            <div class="texto-pagina">
+                                <h2 class="nome-pagina">Setup</h2>
+                                <img src="../assets/dashboard/setup.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="dashboard-sair">
+                    <button class="texto-sair" onclick="limparSessao()">
+                        <h2 class="nome-sair">Sair</h2>
+                        <img src="../assets/dashboard/sair.png" alt="">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="conteudo-dashboard">
+            <div class="titulo_analise">
+                <h1>Analise suas <span class="cor_amarela">movimentações</span> de acordo com o Mapa!</h1>
+                <p>Margem de erro (0, 5)px</p>
+            </div>
+            <select id="selecionar_mapa" class="selecionar_items" onchange="mudarMapa()">
+                <option value="1" selected>Bureau</option>
+                <option value="2">Canals</option>
+                <option value="3">Grounded</option>
+                <option value="4">Legacy</option>
+                <option value="5">Raid</option>
+                <option value="6">Plaza</option>
+                <option value="7">Port</option>
+                <option value="8">Soar</option>
+                <option value="9">Village</option>
+            </select>
+
+            <div class="caixa-mapa">
+                <canvas id="meuMapaAnalytics"></canvas>
+            </div>
+        </div>
+
+        <script>
+            validarSessao();
+
+            let caminhosImagens = {
+                "1": "../assets/mini_mapa_grafico/bureau_map.png",
+                "2": "../assets/mini_mapa_grafico/canals_map.png",
+                "3": "../assets/mini_mapa_grafico/grounded_map.png",
+                "4": "../assets/mini_mapa_grafico/legacy_map.png",
+                "5": "../assets/mini_mapa_grafico/raid_map.png",
+                "6": "../assets/mini_mapa_grafico/plaza_map.png",
+                "7": "../assets/mini_mapa_grafico/port_map.png",
+                "8": "../assets/mini_mapa_grafico/soar_map.png",
+                "9": "../assets/mini_mapa_grafico/village_map.png"
+            };
+
+            function mudarMapa() {
+                let mapaEscolhido = selecionar_mapa.value;
+                atualizarMapa(mapaEscolhido);
+            }
+
+            const ctx = document.getElementById('meuMapaAnalytics').getContext('2d');
+
+            const configuracao = {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        { label: 'Abates', data: [], backgroundColor: '#00ff00', pointRadius: 15 },
+                        { label: 'Mortes', data: [], backgroundColor: '#ff0000', pointRadius: 15 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            min: 300,
+                            max: 340,
+                            display: false,
+                            grid: { display: false }
+                        },
+                        y: {
+                            min: 800,
+                            max: 840,
+                            reverse: false,
+                            display: false,
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: true, labels: { color: 'white' } }
+                    }
+                }
+            };
+
+            const meuGrafico = new Chart(ctx, configuracao);
+
+            function atualizarMapa(idMapaSelecionado) {
+                let idUsuario = sessionStorage.ID_USUARIO;
+                let canvasMapa = document.getElementById('meuMapaAnalytics');
+
+                // Troca o fundo de acordo com a opção do mapa escolhida, por padrão chama o bureau la em baixo
+                canvasMapa.style.backgroundImage = `url('${caminhosImagens[idMapaSelecionado]}')`;
+
+                fetch(`/analises/historicoMapa/${idMapaSelecionado}/${idUsuario}`)
+                    .then(function (resposta) {
+
+                        // SEMPRE limpa o gráfico ao iniciar uma nova busca
+                        meuGrafico.data.datasets[0].data = [];
+                        meuGrafico.data.datasets[1].data = [];
+
+
+                        if (resposta.status == 200) {
+                            resposta.json().then(function (eventos) {
+                                let abates = [];
+                                let mortes = [];
+
+                                for (let i = 0; i < eventos.length; i++) {
+                                    let e = eventos[i];
+                                    if (e.tipo_evento == 'Abate') {
+                                        abates.push({ x: e.posicao_x, y: e.posicao_y });
+                                    } else if (e.tipo_evento == 'Morte') {
+                                        mortes.push({ x: e.posicao_x, y: e.posicao_y });
+                                    }
+                                }
+
+                                meuGrafico.data.datasets[0].data = abates;
+                                meuGrafico.data.datasets[1].data = mortes;
+                                meuGrafico.update();
+                            });
+                        } else {
+                            // Se for 204 ou erro, apenas atualiza o gráfico vazio
+                            console.log("Nenhum dado encontrado ou erro na chamada.");
+                            meuGrafico.update();
+                        }
+                    })
+                    .catch(function (erro) {
+                        console.log("Erro catastrófico no fetch: ", erro);
+                    });
+            }
+            atualizarMapa(1);
+        </script>
+</body>
+
+</html>
