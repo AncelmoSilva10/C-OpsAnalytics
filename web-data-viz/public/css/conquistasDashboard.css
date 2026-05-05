@@ -1,0 +1,13 @@
+.conteudo-dashboard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.conteudo-cadastro-conquista{
+    height: 500px;
+    width: 500px;
+
+    background-color: chartreuse;
+}
