@@ -5,20 +5,20 @@
      padding-top: 20px;
  }
 
-.titulo_analise{
-    background-color: #10141a;
-    border: 2px dashed white;
-    color: white;
-    margin-bottom: 20px;
+ .titulo_analise {
+     background-color: #10141a;
+     border: 2px dashed white;
+     color: white;
+     margin-bottom: 20px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+ }
 
- .cor_amarela{
-    color: #FFC116;
+ .cor_amarela {
+     color: #FFC116;
  }
 
  .selecionar_items {
@@ -44,7 +44,7 @@
  }
 
 
- #meuMapaAnalytics {
+ #geograficoAnalytics {
      width: 100%;
      height: 100%;
      background-size: 100% 100%;

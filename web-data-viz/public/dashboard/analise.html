@@ -92,7 +92,7 @@
             </select>
 
             <div class="caixa-mapa">
-                <canvas id="meuMapaAnalytics"></canvas>
+                <canvas id="geograficoAnalytics"></canvas>
             </div>
         </div>
 
@@ -116,7 +116,7 @@
                 atualizarMapa(mapaEscolhido);
             }
 
-            const ctx = document.getElementById('meuMapaAnalytics').getContext('2d');
+            const ctx = document.getElementById('geograficoAnalytics').getContext('2d');
 
             const configuracao = {
                 type: 'scatter',
@@ -145,11 +145,11 @@
                 }
             };
 
-            const meuGrafico = new Chart(ctx, configuracao);
+            const graficosEventos = new Chart(ctx, configuracao);
 
             function atualizarMapa(idMapaSelecionado) {
                 let idUsuario = sessionStorage.ID_USUARIO;
-                let canvasMapa = document.getElementById('meuMapaAnalytics');
+                let canvasMapa = document.getElementById('geograficoAnalytics');
 
                 // Troca o fundo de acordo com a opção do mapa escolhida, por padrão chama o bureau la em baixo
                 canvasMapa.style.backgroundImage = `url('${caminhosImagens[idMapaSelecionado]}')`;
@@ -158,8 +158,8 @@
                     .then(function (resposta) {
 
                         // SEMPRE limpa o gráfico ao iniciar uma nova busca
-                        meuGrafico.data.datasets[0].data = [];
-                        meuGrafico.data.datasets[1].data = [];
+                        graficosEventos.data.datasets[0].data = [];
+                        graficosEventos.data.datasets[1].data = [];
 
 
                         if (resposta.status == 200) {
@@ -176,14 +176,14 @@
                                     }
                                 }
 
-                                meuGrafico.data.datasets[0].data = abates;
-                                meuGrafico.data.datasets[1].data = mortes;
-                                meuGrafico.update();
+                                graficosEventos.data.datasets[0].data = abates;
+                                graficosEventos.data.datasets[1].data = mortes;
+                                graficosEventos.update();
                             });
                         } else {
                             // Se for 204 ou erro, apenas atualiza o gráfico vazio
                             console.log("Nenhum dado encontrado ou erro na chamada.");
-                            meuGrafico.update();
+                            graficosEventos.update();
                         }
                     })
                     .catch(function (erro) {
