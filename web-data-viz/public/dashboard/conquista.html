@@ -70,22 +70,56 @@
         </div>
 
         <div class="conteudo-dashboard">
-            <div class="conteudo-cadastro-conquista">
+            <div class="conteudo-cadastro-conquista" id="mural_titulos">
                 <div class="titulo-conquista">
                     <div class="fundo-titulo-conquista">
-                        <h1>Cadastre suas conquistas</h1>
+                        <h1>Visualize suas conquistas</h1>
+                        <img src="../assets/dashboard/titulos.png" alt="">
                     </div>
                 </div>
-                <div class="conteudo-inputs">
-
-                </div>
-                <div class="conteudo-botao-conquista">
+                <div class="conquistas_dados">
+                    <div class="dados-titulos">
+                        <h2 id="texto_titulo">Champion Polaris Tournament Cup 7</h2>
+                        <img src="../assets/icon_conquista/edit.png" alt="">
+                        <img src="../assets/icon_conquista/trash.png" alt="">
+                    </div>
 
                 </div>
             </div>
+
+            <div class="botao-adicionar" id="botao_adicionar" style="display: block;">
+                <button onclick="adicionar()">Adicionar</button>
+            </div>
+
+            <div class="conteudo-cadastro-partida" id="tela_cadastro_conquista" style="display: none;">
+                    <div class="titulo-cadastro-partida">
+                        <div class="fundo-titulo-partida">
+                            <h1 id="texto-cadastro">Cadastrar titulo</h1>
+                        </div>
+                    </div>
+                    <div class="campos-leitura">
+                        <div class="inputs-cadastro">
+                            <p class="texto-cadastro">Insira o Titulo:</p>
+                            <input type="text" id="ipt_titulo" placeholder="Champion MVP Circuit">
+                        </div>
+                    </div>
+                    <div class="links-butao">
+                        <button class="buttao-funcao-cadastrar" onclick="cadastrarConquista()">Cadastrar Titulo</button>
+                    </div>
+                </div>
+
         </div>
     </div>
 
 </body>
 
 </html>
+
+<script>
+    function adicionar() {
+        mural_titulos.style.display = "none";
+        tela_cadastro_conquista.style.display = "block";
+        botao_adicionar.style.display = "none";
+
+    }
+</script>
