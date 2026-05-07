@@ -22,6 +22,7 @@ var roundRouter = require("./src/routes/round");
 var eventoRouter = require("./src/routes/evento");
 var estatisticaRouter = require("./src/routes/estatisticas");
 var analisesRouter = require("./src/routes/analises");
+var conquistasRouter = require("./src/routes/conquistas");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -36,6 +37,7 @@ app.use("/rounds", roundRouter);
 app.use("/eventos", eventoRouter);
 app.use("/estatisticas", estatisticaRouter);
 app.use("/analises", analisesRouter);
+app.use("/conquistas", conquistasRouter);
 
 
 app.listen(PORTA_APP, function () {

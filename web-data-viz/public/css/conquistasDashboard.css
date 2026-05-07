@@ -200,3 +200,10 @@
     box-shadow: 0px 6px 8px #58A6FF;
     transition: all 250ms; 
 }
+
+
+/* Texto dos titulos */
+.texto_titulo{
+    font-weight: bolder;
+    font-size: xx-large;
+}
