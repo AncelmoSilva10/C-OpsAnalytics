@@ -416,6 +416,14 @@
                 alert("Round salvo!");
             });
         }
+
+        function finalizar() {
+            tela_round.style.display = "none";
+            tela_partida.style.display = "block";
+            setTimeout(() => {
+                alert("Partida e rounds registrados com sucesso! Redirecionando para as análises...");
+            }, 1000);
+        }
     </script>
 </body>
 
