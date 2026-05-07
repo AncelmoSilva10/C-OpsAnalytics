@@ -18,7 +18,7 @@
 
 <script src="../js/sessao.js"></script>
 
-<body onload="exibirConquistas()">
+<body>
     <div class="conteudo-total">
         <div class="conteudo-navbar">
             <div class="navbar">
@@ -102,6 +102,8 @@
                 </div>
                 <div class="links-butao">
                     <button class="buttao-funcao-cadastrar" onclick="cadastrarConquista()">Cadastrar Titulo</button>
+                    <button class="buttao-funcao-cancelar" onclick="cancelar()"
+                        style="background-color: gray;">Cancelar</button>
                 </div>
             </div>
 
@@ -113,10 +115,19 @@
 </html>
 
 <script>
+
+
     function adicionar() {
         mural_titulos.style.display = "none";
-        tela_cadastro_conquista.style.display = "block";
+        tela_cadastro_conquista.style.display = "flex";
         botao_adicionar.style.display = "none";
+    }
+
+    function cancelar() {
+        ipt_titulo.value = "";
+        mural_titulos.style.display = "flex";
+        tela_cadastro_conquista.style.display = "none";
+        botao_adicionar.style.display = "flex";
     }
 
     function exibirConquistas() {
@@ -124,6 +135,8 @@
         fetch(`/conquistas/titulos/${idUsuario}`)
             .then(resposta => {
                 resposta.json().then(json => {
+                    div_dados.innerHTML = "";
+
                     json.forEach((item) => {
                         div_dados.innerHTML += `<div class= "dados-formatacao"><div class="div-titulo"><h2 id="texto_titulo">${item.titulo}</h2></div> <div class="icon-crud"> <img src="../assets/icon_conquista/edit.png" alt="">
                         <img src="../assets/icon_conquista/trash.png" alt=""></div></div>`;
@@ -154,13 +167,16 @@
                 resposta.json().then(json => {
                     alert("Cadastro de titulo realizado!");
                     tela_cadastro_conquista.style.display = "none";
-                    botao_adicionar.style.display = "block";
-                    mural_titulos.style.display = "block";
+                    botao_adicionar.style.display = "flex";
+                    mural_titulos.style.display = "flex";
+                    ipt_titulo.value = ""; 
+                    exibirConquistas();
                 });
             } else {
                 alert("Erro no cadastro da partida.");
             }
         }).catch(erro => console.log("#ERRO: ", erro));
-
     }
+
+    exibirConquistas();
 </script>

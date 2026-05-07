@@ -32,6 +32,7 @@
 }
 
 /* Parte dos dados a baixo */
+/* Parte dos dados a baixo */
 .conquistas_dados {
     width: 80%;
     height: 75%;
@@ -41,9 +42,14 @@
     border-radius: 20px;
 
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; 
     align-items: center;
     flex-direction: column;
+
+    
+    overflow-y: auto; 
+    padding-top: 15px; 
+    padding-bottom: 15px; 
 }
 
 
