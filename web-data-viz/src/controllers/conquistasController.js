@@ -16,6 +16,23 @@ function buscarConquistas(req, res) {
         });
 }
 
+function cadastrarConquistas(req, res) {
+    var titulo = req.body.tituloServer;
+    var idUsuario = req.body.idUsuarioServer;
+
+    conquistasModel.cadastrarConquistas(titulo, idUsuario)
+        .then((resultadoBanco) => {
+            res.status(200).json(resultadoBanco);
+        })
+        .catch((erro) => {
+            console.log("\nErro ao cadastrar conquista:");
+            console.log(erro);
+            console.log("\nErro SQL: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
-    buscarConquistas
+    buscarConquistas,
+    cadastrarConquistas
 };

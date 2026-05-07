@@ -43,19 +43,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
-.dados-titulos {
-    width: 90%;
 
-    display: flex;
-    justify-content: space-around;
-}
-
-.dados-titulos img {
-    width: 7%;
-    height: 7%;
-}
 
 /* Botão de Adiconar */
 .botao-adicionar button {
@@ -207,3 +198,50 @@
     font-weight: bolder;
     font-size: xx-large;
 }
+
+/* Apresentação dos titulos */
+.dados-formatacao{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+
+    
+}
+
+.texto_titulo{
+    width: 70%;
+}
+
+.div-titulo{
+    width: 70%;
+    height: 60px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.icon-crud{
+    width: 30%;
+    height: 60px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.icon-crud img {
+    width: 35px;
+    height: 35px;
+}
+.dados-titulos {
+    width: 90%;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+}              
+

@@ -125,12 +125,42 @@
             .then(resposta => {
                 resposta.json().then(json => {
                     json.forEach((item) => {
-                        div_dados.innerHTML += `<h2 id="texto_titulo">${item.titulo}</h2>  <img src="../assets/icon_conquista/edit.png" alt="">
-                        <img src="../assets/icon_conquista/trash.png" alt="">`;
+                        div_dados.innerHTML += `<div class= "dados-formatacao"><div class="div-titulo"><h2 id="texto_titulo">${item.titulo}</h2></div> <div class="icon-crud"> <img src="../assets/icon_conquista/edit.png" alt="">
+                        <img src="../assets/icon_conquista/trash.png" alt=""></div></div>`;
                     });
                 })
             }).catch(erro => {
                 console.error(erro);
             })
+    }
+
+    function cadastrarConquista() {
+        let titulo = ipt_titulo.value;
+        let idUsuario = sessionStorage.ID_USUARIO;
+
+        if (titulo == "") {
+            return alert("Erro: Preencha o titulo!")
+        }
+
+        fetch(`/conquistas/cadastrar`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                tituloServer: titulo,
+                idUsuarioServer: idUsuario
+            }),
+        }).then((resposta) => {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    alert("Cadastro de titulo realizado!");
+                    tela_cadastro_conquista.style.display = "none";
+                    botao_adicionar.style.display = "block";
+                    mural_titulos.style.display = "block";
+                });
+            } else {
+                alert("Erro no cadastro da partida.");
+            }
+        }).catch(erro => console.log("#ERRO: ", erro));
+
     }
 </script>
