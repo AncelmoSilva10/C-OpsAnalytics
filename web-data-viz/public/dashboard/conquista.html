@@ -148,6 +148,7 @@
         ipt_titulo.value = "";
         mural_titulos.style.display = "flex";
         tela_cadastro_conquista.style.display = "none";
+        tela_editar_conquista.style.display = "none";
         botao_adicionar.style.display = "flex";
     }
 
@@ -197,7 +198,7 @@
                             </div> 
                         <div class="icon-crud"> 
                         <a onclick="editarConquista(${item.idConquista})"><img src="../assets/icon_conquista/edit.png" alt=""></a>
-                        <img src="../assets/icon_conquista/trash.png" alt=""></div></div>`;
+                        <a onclick="removerConquista(${item.idConquista})"><img src="../assets/icon_conquista/teste.png" alt=""></a></div></div>`;
                     });
                 })
             }).catch(erro => {
@@ -215,7 +216,7 @@
         id_editar_conquista = idConquista;
     }
 
-    function editar() { 
+    function editar() {
         fetch(`/conquistas/editar/${id_editar_conquista}`, {
             method: "PUT",
             headers: {
@@ -234,6 +235,30 @@
         }).catch(erro => {
             console.error(erro);
         });
+    }
+
+    // Deletar conquista
+    function removerConquista(idConquista) {
+        if (confirm("Você deseja continuar?")) {
+            fetch(`/conquistas/deletar/${idConquista}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(resposta => {
+                if (resposta.ok) {
+                    alert("Deletado com sucesso!");
+                    exibirConquistas();
+                } else {
+                    alert("Não foi possível deletar!");
+                    exibirConquistas();
+                }
+
+            }).catch(erro => {
+                console.error(erro);
+            })
+
+        }
     }
 
 

@@ -26,7 +26,7 @@ function cadastrarConquistas(titulo, idUsuario) {
     return database.executar(instrucaoSql);
 }
 
-function editarConquistas(idConquista, tituloNovo){
+function editarConquistas(idConquista, tituloNovo) {
     console.log("ACESSEI O PARTIDA MODEL \n function editarConquista():", idConquista, tituloNovo);
 
     var instrucaoSql = `
@@ -40,8 +40,22 @@ function editarConquistas(idConquista, tituloNovo){
     return database.executar(instrucaoSql);
 }
 
+function deletarConquistas(idConquista) {
+    console.log("ACESSEI O PARTIDA MODEL \n function deletarConquistas():", idConquista);
+
+    var instrucaoSql = `
+            DELETE FROM conquista
+		     WHERE idConquista = ${idConquista};
+        `;
+
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarConquistas,
     cadastrarConquistas,
-    editarConquistas
+    editarConquistas,
+    deletarConquistas
 };

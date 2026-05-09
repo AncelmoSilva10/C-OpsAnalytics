@@ -53,8 +53,24 @@ function editarConquistas(req, res) {
 
 }
 
+function deletarConquistas(req, res) {
+    var idConquista = req.params.idConquista;
+
+    conquistasModel.deletarConquistas(idConquista)
+        .then(respostaBanco => {
+            res.status(200).json(respostaBanco);
+        })
+        .catch((erro) => {
+            console.log("\nErro ao deletar conquista:");
+            console.log(erro);
+            console.log("\nErro SQL: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     buscarConquistas,
     cadastrarConquistas,
-    editarConquistas
+    editarConquistas,
+    deletarConquistas
 };

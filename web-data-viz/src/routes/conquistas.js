@@ -15,4 +15,8 @@ router.put("/editar/:idConquista",function(req, res) {
     conquistasController.editarConquistas(req, res);
 });
 
+router.delete("/deletar/:idConquista",function(req, res) {
+    conquistasController.deletarConquistas(req, res);
+});
+
 module.exports = router;
