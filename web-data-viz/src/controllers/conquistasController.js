@@ -32,7 +32,29 @@ function cadastrarConquistas(req, res) {
         });
 }
 
+function editarConquistas(req, res) {
+    var idConquista = req.params.idConquista;
+    var tituloNovo = req.body.tituloServer;
+
+    if (tituloNovo == undefined) {
+        res.status(400).send("Seu titulo editado está undefined!");
+    } else {
+        conquistasModel.editarConquistas(idConquista, tituloNovo)
+            .then((resultadoBanco) => {
+                res.status(200).json(resultadoBanco);
+            })
+            .catch((erro) => {
+                console.log("\nErro ao editar conquista:");
+                console.log(erro);
+                console.log("\nErro SQL: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+
+}
+
 module.exports = {
     buscarConquistas,
-    cadastrarConquistas
+    cadastrarConquistas,
+    editarConquistas
 };

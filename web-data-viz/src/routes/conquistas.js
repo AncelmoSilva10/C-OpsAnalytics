@@ -11,4 +11,8 @@ router.post("/cadastrar", function (req, res) {
     conquistasController.cadastrarConquistas(req, res);
 });
 
+router.put("/editar/:idConquista",function(req, res) {
+    conquistasController.editarConquistas(req, res);
+});
+
 module.exports = router;
