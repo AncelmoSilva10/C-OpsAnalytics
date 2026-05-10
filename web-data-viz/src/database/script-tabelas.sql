@@ -79,6 +79,12 @@ CREATE TABLE posicao_evento (
   CONSTRAINT fk_event_sessao FOREIGN KEY (fk_sesao_mapa) REFERENCES sesao_mapa (idsesao_mapa)
 );
 
+CREATE TABLE conquista(
+	idConquista INT PRIMARY KEY AUTO_INCREMENT,
+    titulo VARCHAR(250),
+    fk_usuario INT,
+	CONSTRAINT chk_fk_usuarioCO FOREIGN KEY (fk_usuario) REFERENCES usuario(idUsuario)
+);
 
 SELECT * FROM usuario;
 SELECT * FROM partida;
@@ -87,6 +93,8 @@ SELECT * FROM round;
 SELECT * FROM armamento;
 SELECT * FROM posicao_evento;
 SELECT * FROM mapa;
+SELECT * FROM conquista;
+
 
 -- Cadastro dos Mapas
 INSERT INTO mapa (nome_mapa, imagem_url) 
