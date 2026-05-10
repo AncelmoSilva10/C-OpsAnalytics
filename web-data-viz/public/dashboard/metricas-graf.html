@@ -100,76 +100,102 @@
 
 <script>
     validarSessao();
-    
+    exibirGraficoMapa();
+
     const winRating_grafico = document.getElementById('grafico_radar');
 
-    const data_radar = {
-        labels: [
-            'Eating',
-            'Drinking',
-            'Sleeping',
-            'Designing',
-            'Coding',
-            'Cycling',
-            'Running'
-        ],
-        datasets: [{
-            label: 'Win rating por Mapa',
-            data: [65, 59, 90, 81, 56, 55, 40],
-            fill: true,
-            backgroundColor: 'rgba(255, 140, 0, 0.2)',
-            borderColor: 'rgb(255, 140, 0)',
-            pointBackgroundColor: 'rgb(255, 140, 0)',
-            pointBorderColor: '#111827',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgb(255, 140, 0)'
-        }]
-    };
+    function exibirGraficoMapa() {
+        let idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/metricas/historicoPartida/${idUsuario}`)
+            .then(resposta => resposta.json())
+            .then(json => {
 
-    const config_radar = {
-        type: 'radar',
-        data: data_radar,
-        options: {
-            elements: {
-                line: {
-                    borderWidth: 3
+
+                let data = [];
+                let labels = [];
+
+                if(json.length > 1){
+                    json.forEach(item => {
+                    data.push(item.win_rating);
+                    labels.push(item.nome_mapa);
+                });
+
+                plotarGraficoMapa(labels, data);
                 }
-            }, scales: {
-                r: { // Escala Radial
-                    angleLines: {
-                        color: '#58A6FF'
-                    },
-                    grid: { // As linhas circulares de fundo
-                        color: '#58A6FF'
-                    },
-                    pointLabels: { // A cor dos textos
-                        color: 'white',
-                        font: {
-                            size: 14,
-                            weight: 'bold'
+ 
+
+            })
+            .catch(erro => {
+                console.error(erro)
+            });
+
+    }
+
+    function plotarGraficoMapa(labels, data){
+        let data_radar = {
+            labels: labels,
+            datasets: [{
+                label: 'Win rating por Mapa',
+                data: data,
+                fill: true,
+                backgroundColor: 'rgba(255, 140, 0, 0.2)',
+                borderColor: 'rgb(255, 140, 0)',
+                pointBackgroundColor: 'rgb(255, 140, 0)',
+                pointBorderColor: '#111827',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(255, 140, 0)'
+            }]
+        };
+
+
+        const config_radar = {
+            type: 'radar',
+            data: data_radar,
+            options: {
+                elements: {
+                    line: {
+                        borderWidth: 3
+                    }
+                }, scales: {
+                    r: { // Escala Radial
+                        angleLines: {
+                            color: '#58A6FF'
+                        },
+                        grid: { // As linhas circulares de fundo
+                            color: '#58A6FF'
+                        },
+                        pointLabels: { // A cor dos textos
+                            color: 'white',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        },
+                        ticks: {
+                            display: false
                         }
                     },
-                    ticks: {
-                        display: false
-                    }
                 },
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#FFC116',
-                        font: {
-                            size: 20,
-                            weight: 'bold'
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#FFC116',
+                            font: {
+                                size: 20,
+                                weight: 'bold'
+                            }
                         }
                     }
                 }
-            }
-        },
+            },
 
-    };
+        };
 
-    let winRating = new Chart(winRating_grafico, config_radar);
+        let winRating = new Chart(winRating_grafico, config_radar);
+
+        winRating.update();
+    }
+
 
     // Grafico de Histórico
     const hitorico_grafico = document.getElementById('grafico_historico');
