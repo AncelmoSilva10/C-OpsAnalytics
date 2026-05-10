@@ -31,7 +31,7 @@ function buscarPatente(idUsuario) {
     var instrucaoSql = `
         SELECT  (u.qt_pontos + p.qt_pontos) AS pontos_atuais FROM usuario u 
 	        INNER JOIN partida p ON p.fk_usuario = u.idUsuario
-	WHERE u.idUsuario = ${idUsuario} ORDER BY pontos_atuais LIMIT 1;
+	WHERE u.idUsuario = ${idUsuario} ORDER BY pontos_atuais;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
