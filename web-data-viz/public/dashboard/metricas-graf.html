@@ -101,12 +101,14 @@
 <script>
     validarSessao();
     exibirGraficoMapa();
+    exibirGraficoHistorico();
 
     const winRating_grafico = document.getElementById('grafico_radar');
+    const hitorico_grafico = document.getElementById('grafico_historico');
 
     function exibirGraficoMapa() {
         let idUsuario = sessionStorage.ID_USUARIO;
-        fetch(`/metricas/historicoPartida/${idUsuario}`)
+        fetch(`/metricas/winRatingMapa/${idUsuario}`)
             .then(resposta => resposta.json())
             .then(json => {
 
@@ -114,15 +116,15 @@
                 let data = [];
                 let labels = [];
 
-                if(json.length > 1){
+                if (json.length > 1) {
                     json.forEach(item => {
-                    data.push(item.win_rating);
-                    labels.push(item.nome_mapa);
-                });
+                        data.push(item.win_rating);
+                        labels.push(item.nome_mapa);
+                    });
 
-                plotarGraficoMapa(labels, data);
+                    plotarGraficoMapa(labels, data);
                 }
- 
+
 
             })
             .catch(erro => {
@@ -131,7 +133,7 @@
 
     }
 
-    function plotarGraficoMapa(labels, data){
+    function plotarGraficoMapa(labels, data) {
         let data_radar = {
             labels: labels,
             datasets: [{
@@ -198,73 +200,101 @@
 
 
     // Grafico de Histórico
-    const hitorico_grafico = document.getElementById('grafico_historico');
 
-    const data_linha = {
-        labels: ['Partida 1', 'Partida 2', 'Partida 3', 'Partida 4', 'Partida 5', 'Partida 6'],
+    function exibirGraficoHistorico() {
+        let idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/metricas/historicoPartida/${idUsuario}`)
+            .then(resposta => resposta.json())
+            .then(json => {
 
-        datasets: [{
-            label: 'K/D Ratio',
-            data: [1.2, 1.5, 1.8, 2.1, 1.9, 2.4],
-            fill: true,
-            borderColor: '#58A6FF',
-            backgroundColor: 'rgba(88, 166, 255, 0.10)',
-            pointBackgroundColor: '#58A6FF',
-            pointHoverBackgroundColor: '#FF8C00',
-            pointRadius: 5,
-            pointHoverRadius: 8,
-            borderWidth: 3,
+                let partida = [];
+                let data = [];
 
-            tension: 0.4
-        }]
-    };
+                if (json.length > 1) {
+                    json.forEach(item => {
+                        partida.push(`Partida ${item.idPartida}`);
+                        data.push(item.kd_resultado);
+                    });
 
-    const config_linha = {
-        type: 'line',
-        data: data_linha,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#FFC116',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        }
-                    }
+                    plotarGraficoHistorico(partida, data);
                 }
-            },
 
-            scales: {
-                x: {
-                    ticks: {
-                        color: 'white'
-                    },
 
-                    grid: {
-                        color: 'rgba(88, 166, 255, 0.05)'
+            })
+            .catch(erro => {
+                console.error(erro)
+            });
+    }
+
+    function plotarGraficoHistorico(partida, kd) {
+        let data_linha = {
+            labels: partida,
+            datasets: [{
+                label: 'K/D Ratio',
+                data: kd,
+                fill: true,
+                borderColor: '#58A6FF',
+                backgroundColor: 'rgba(88, 166, 255, 0.10)',
+                pointBackgroundColor: '#58A6FF',
+                pointHoverBackgroundColor: '#FF8C00',
+                pointRadius: 5,
+                pointHoverRadius: 8,
+                borderWidth: 3,
+
+                tension: 0.4
+            }]
+        };
+
+        let config_linha = {
+            type: 'line',
+            data: data_linha,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#FFC116',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        }
                     }
                 },
 
-                y: {
-                    beginAtZero: true,
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white'
+                        },
 
-                    ticks: {
-                        color: 'white'
+                        grid: {
+                            color: 'rgba(88, 166, 255, 0.05)'
+                        }
                     },
 
-                    grid: {
-                        color: 'rgba(88, 166, 255, 0.08)'
+                    y: {
+                        beginAtZero: true,
+
+                        ticks: {
+                            color: 'white'
+                        },
+
+                        grid: {
+                            color: 'rgba(88, 166, 255, 0.08)'
+                        }
                     }
                 }
             }
-        }
-    };
+        };
 
-    let historico = new Chart(hitorico_grafico, config_linha);
+        let historico = new Chart(hitorico_grafico, config_linha);
+
+        historico.update();
+
+    }
 
 
 </script>
