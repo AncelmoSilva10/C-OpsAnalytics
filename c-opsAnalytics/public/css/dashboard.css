@@ -1,0 +1,388 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Isso impede que bordas quebrem o tamanho dos cards */
+    font-family: "Rajdhani", sans-serif;
+    text-decoration: none;
+}
+
+.conteudo-total {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+/* Navbar da esquerda */
+.conteudo-navbar {
+    width: 20%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1F2937;
+}
+
+.navbar {
+    width: 100%;
+    height: 85%;
+    background-color: #1E1E1E;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 0px 30px 30px 0px;
+}
+
+.navbar img {
+    width: 70%;
+    object-fit: contain;
+    /* Garante que a logo não distorça */
+}
+
+.link_logo_home {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo-nome {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.nome-usuario {
+    color: #FFC116;
+}
+
+/* Links da dashboard */
+.links-dashboard {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* Cria espaço entre os botões sem quebrar nada */
+    align-items: center;
+}
+
+.texto-pagina {
+    width: 160px;
+    height: 50px;
+    border: 2px solid #7F96B3;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.texto-pagina:hover {
+    border-color: #FFC116;
+}
+
+.texto-pagina h2 {
+    color: white;
+    font-size: 1.1rem;
+}
+
+.texto-pagina img {
+    width: 25px;
+    height: 25px;
+}
+
+/* Botão Sair */
+.dashboard-sair button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dashboard-sair h2 {
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* Conteudo Principal */
+.conteudo-dashboard {
+    width: 80%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #1F2937;
+    gap: 15px;
+    /* Espaço entre as linhas de cards */
+}
+
+/* KPIS, Historico, Alerta e Curiosidades */
+.kpi,
+.historico,
+.alerta,
+.curiosidades-estatistica {
+    background-color: #111827;
+    border: 2px solid #7F96B3;
+    border-radius: 15px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.conteudo-kpis {
+    width: 100%;
+    height: 25%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.kpi {
+    width: 32%;
+    height: 100%;
+}
+
+.kpi img {
+    width: 60px;
+    margin-top: 10px;
+}
+
+/* Historico e Alerta */
+.conteudo-historico-alerta {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.historico {
+    width: 68%;
+    height: 100%;
+    justify-content: flex-start;
+    padding: 15px;
+    overflow-y: auto;
+    /* Adiciona scroll se tiver muitos jogos */
+}
+
+.alerta {
+    width: 30%;
+    height: 100%;
+}
+
+/* Tabela de Histórico */
+.historico-individual-titulo,
+.historico-individual {
+    width: 100%;
+    min-height: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.historico-individual {
+    border: 1px solid #7F96B3;
+    border-radius: 8px;
+}
+
+/* Colunas da tabela para ficarem retinhas */
+.informacoes_historico,
+.centralizar-titulo,
+.fundo_status {
+    width: 25%;
+    text-align: center;
+
+    font-weight: bolder;
+}
+
+.fundo_status {
+    height: 30px;
+    border-radius: 5px;
+    border: 1px dashed white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+/* Curiosidades */
+.conteudo-curiosidade {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.curiosidades-estatistica {
+    width: 100%;
+    height: 100%;
+}
+
+.metricas_kills {
+    color: #FFC116;
+    font-weight: bold;
+}
+
+/* Parte das curiosidades */
+.curiosidades-estatistica {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;    
+    justify-content: space-around; 
+    align-items: center;                    
+}
+
+/* Parte das armas */
+.bloco-curiosidade {
+    width: 180px;
+    height: 140px;
+    background-color: #111827;
+    border: 2px solid #7F96B3;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Melhor mapa */
+.bloco-curiosidade-mapa-melhor {
+    width: 180px;
+    height: 140px;
+    border: 2px solid #7F96B3;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    /* Imagem de Fundo */
+    background-image: url('../assets/mapas/bureau.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    /* Para o filtro escuro */
+    overflow: hidden;
+}
+
+/* pIor mapa */
+.bloco-curiosidade-mapa-pior {
+    width: 180px;
+    height: 140px;
+    border: 2px solid #7F96B3;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    /* Imagem de Fundo */
+    background-image: url('../assets/mapas/soar.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Filtro escuro para os dois blocos de mapa */
+.bloco-curiosidade-mapa-melhor::before,
+.bloco-curiosidade-mapa-pior::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* Deixa a imagem do fundo escura */
+    z-index: 1;
+}
+
+/* Garante que o texto fique por cima do filtro */
+.bloco-curiosidade-mapa-melhor h3,
+.bloco-curiosidade-mapa-melhor p,
+.bloco-curiosidade-mapa-pior h3,
+.bloco-curiosidade-mapa-pior p {
+    position: relative;
+    z-index: 2;
+}
+
+.titulo-melhor-mapa {
+    color: #8bc59b;
+    font-weight: bold;
+}
+
+.titulo-pior-mapa {
+    color: #d1313d;
+    font-weight: bold;
+}
+
+.rate_mapa {
+    color: #FFC116;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Parte do Alerta */
+
+.alerta{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.fundo-alerta{
+    height: 10%;
+    width: 95%;
+
+    background-color: #0c0cff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10px;
+    border: 1px solid white;
+}
+
+.imagem-alerta{
+    height: 20%;
+    width: 95%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagem-alerta img{
+    width: 30%;
+}
+
+.descricao-alerta{
+    height: 40%;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.historico-alerta{
+    height: auto;
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+}

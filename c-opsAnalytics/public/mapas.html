@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapas</title>
+
+    <!-- CSS da página e da navbar -->
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/mapas.css">
+
+    <!-- Fontes pega do Google fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Navbar com Logo e Link -->
+    <div class="navbar">
+        <img src="assets/home/logo-white.png" alt="" id="logo">
+        <div class="links">
+            <a href="index.html">
+                <span>Inicio</span>
+            </a>
+            <a href="index.html#secao-historia">
+                <span>Sobre o Jogo</span>
+            </a>
+            <a href="index.html#secao-modos">
+                <span>Mapas e Modos</span>
+            </a>
+            <a href="index.html#secao-projeto">
+                <span>Sobre o Projeto</span>
+            </a>
+            <div class="area_jogador">
+                <a href="login.html">
+                    <h3>Área do Jogador</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Parte dos mapas -->
+    <div class="conteudo-galeria" id="galeria_principal">
+        <div class="titulo-modos-mapas">
+            <h1 id="titulo-galeria-mapas">Galeria de Mapas</h1>
+            <div class="selecao-modos">
+                <span>Selecione o Modo</span>
+                <select id="modo_jogo" class="modos" onchange="trocarMapas()">
+                    <option value="defuse">Defuse</option>
+                    <option value="ranked">Ranked</option>
+                    <option value="deathmatch">Deathmatch</option>
+                </select>
+            </div>
+        </div>
+        <div id="lista_de_mapas" class="mapas-listados">
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    let nomesDefuse = ["Bureau", "Canals", "Grounded", "Legacy", "Raid", "Plaza", "Port", "Soar", "Village"];
+    let fotosDefuse = [
+        "assets/mapas/bureau.png",
+        "assets/mapas/canals.png",
+        "assets/mapas/grounded.png",
+        "assets/mapas/legacy.png",
+        "assets/mapas/raid.png",
+        "assets/mapas/plaza.png",
+        "assets/mapas/port.png",
+        "assets/mapas/soar.png",
+        "assets/mapas/village.png"
+    ];
+
+    let nomesRanked = ["Bureau", "Canals", "Grounded", "Legacy", "Raid", "Plaza", "Port", "Soar", "Village"];
+    let fotosRanked = [
+        "assets/mapas/bureau.png",
+        "assets/mapas/canals.png",
+        "assets/mapas/grounded.png",
+        "assets/mapas/legacy.png",
+        "assets/mapas/raid.png",
+        "assets/mapas/plaza.png",
+        "assets/mapas/port.png",
+        "assets/mapas/soar.png",
+        "assets/mapas/village.png"
+    ];
+
+    let nomesDM = ["Artic", "Brewery", "Cargo", "Division", "Gallery", "Heat", "Impasse", " Overhaul", " Warehouse"];
+    let fotosDM = [
+        "assets/mapas/artic.png",
+        "assets/mapas/brewery.png",
+        "assets/mapas/cargo.png",
+        "assets/mapas/division.png",
+        "assets/mapas/gallery.png",
+        "assets/mapas/heat.png",
+        "assets/mapas/impasse.png",
+        "assets/mapas/overhaul.png",
+        "assets/mapas/warehouse.png"
+    ];
+    function trocarMapas() {
+
+        let modo = modo_jogo.value;
+        lista_de_mapas.innerHTML = "";
+
+        if (modo == "defuse") {
+            galeria_principal.style.background = "linear-gradient(to bottom, #0D0D0D 0%, #132047 100%)";
+        }
+        else if (modo == "ranked") {
+            galeria_principal.style.background = "linear-gradient(to bottom, #0D0D0D 0%, #FF8D0A 100%)";
+        }
+        else if (modo == "deathmatch") {
+            galeria_principal.style.background = "linear-gradient(to bottom, #0D0D0D 0%, #471313 100%)";
+        }
+
+        let nomesAtuais = [];
+        let fotosAtuais = [];
+
+        if (modo == "defuse") {
+            nomesAtuais = nomesDefuse;
+            fotosAtuais = fotosDefuse;
+        } else if (modo == "ranked") {
+            nomesAtuais = nomesRanked;
+            fotosAtuais = fotosRanked;
+        } else if (modo == "deathmatch") {
+            nomesAtuais = nomesDM;
+            fotosAtuais = fotosDM;
+        }
+
+        for (let i = 0; i < nomesAtuais.length; i++) {
+            lista_de_mapas.innerHTML +=
+                '<div class="conteudo-mapa">' +
+                '<div class="titulo-mapa">' +
+                '<div class="texto-nome"><span>' + nomesAtuais[i] + '</span></div>' +
+                '<div class="texto-modo"><h2>Modo ' + modo + '</h2></div>' +
+                '</div>' +
+                '<div class="imagem-mapa-modo">' +
+                '<img src="' + fotosAtuais[i] + '">' +
+                '</div>' +
+                '</div>';
+
+            if (i <= nomesAtuais.length / 2) {
+
+            }
+        }
+    }
+    trocarMapas();
+</script>

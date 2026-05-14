@@ -1,0 +1,56 @@
+/* Parte da Navbar */
+.navbar {
+    background-color: #1A1C1E;
+    height: 80px;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+#logo {
+    width: 200px;
+    height: 100px;
+}
+
+.links {
+    background-color: #1A1C1E;
+    width: 50%;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+
+}
+
+.links a {
+    text-decoration: none;
+    color: white;
+    transition: 1s ease;
+}
+
+.links a:hover {
+    font-weight: bold;
+    color: #FFC116;
+}
+
+.area_jogador {
+    background: linear-gradient(to right,
+            #FFC116 0%,
+            rgba(255, 141, 10, 0.8) 100%);
+
+    width: 25%;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.area_jogador h3 {
+
+    color: #1F2937;
+}

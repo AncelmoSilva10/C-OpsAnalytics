@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    font-family: "Rajdhani", sans-serif;
+}
+
+
+.conteudo-galeria {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+.titulo-modos-mapas {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.titulo-modos-mapas h1 {
+    font-size: 50px;
+    font-weight: bolder;
+    color: white;
+}
+
+.selecao-modos {
+    width: 25%;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size: xx-large;
+    font-weight: bolder;
+
+    background: linear-gradient(to right,
+            #FFC116 0%,
+            rgba(255, 141, 10, 0.8) 100%);
+}
+
+.modos {
+
+    font-size: medium;
+    font-weight: bold;
+
+    background: linear-gradient(to right,
+            #FFC116 0%,
+            rgba(255, 141, 10, 0.8) 100%);
+}
+
+.conteudo-mapa {
+    width: 70%;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    background-color: #383838;
+    margin-top: 30px;
+}
+
+
+.mapas-listados {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titulo-mapa {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.texto-nome span {
+    font-size: 70px;
+    font-weight: 100;
+    color: #FF8D0A;
+}
+
+.texto-modo h2 {
+    font-size: 40px;
+    color: white;
+
+}
+
+.imagem-mapa-modo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagem-mapa-modo img {
+    width: 80%;
+    height: auto;
+
+}

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C-ops | Dash</title>
+
+    <link rel="stylesheet" href="../css/dashboard.css">
+
+    <!-- Fontes pega do Google fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<script src="../js/sessao.js"></script>
+
+<body>
+
+    <div class="conteudo-total">
+        <div class="conteudo-navbar">
+            <div class="navbar">
+                <a class="link_logo_home" href="dashboard.html"><img src="../assets/home/logo-white.png" alt=""></a>
+                <div class="titulo-nome">
+                    <h2>Bem vindo,<span class="nome-usuario" id="usuario">Stylish!</span></h1>
+                </div>
+                <div class="links-dashboard">
+                    <div class="pagina">
+                        <a href="cadastrarPartida.html">
+                            <div class="texto-pagina">
+                                <h2 class="nome-pagina">Cadastrar</h2>
+                                <img src="../assets/dashboard/cadastro-cops.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="pagina">
+                        <a href="analise.html">
+                            <div class="texto-pagina">
+                                <h2 class="nome-pagina">Position Graphics</h2>
+                                <img src="../assets/dashboard/mapeamento.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="pagina">
+                        <a href="metricas-graf.html">
+                            <div class="texto-pagina">
+                                <h2 class="nome-pagina">Metrics Graphics</h2>
+                                <img src="../assets/dashboard/radar-icon.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="pagina">
+                        <a href="conquista.html">
+                            <div class="texto-pagina">
+                                <h2 class="nome-pagina">Conquistas</h2>
+                                <img src="../assets/dashboard/titulos.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="dashboard-sair">
+                    <button class="texto-sair" onclick="limparSessao()">
+                        <h2 class="nome-sair">Sair</h2>
+                        <img src="../assets/dashboard/sair.png" alt="">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="conteudo-dashboard">
+            <div class="conteudo-kpis">
+                <div class="kpi">
+                    <h1>Patente</h1>
+                    <h2 id="nome_patente"></h2>
+                    <div id="imagem_patente"></div>
+                </div>
+                <div class="kpi">
+                    <h1>Kill-Death (KD)</h1>
+                    <span id="kd_player"></span>
+                    <p class="metricas_kills">Total de Kills: </p><span id="total_abates_player"></span>
+                    <p class="metricas_kills">Total de Mortes: </p><span id="total_mortes_player"></span>
+                </div>
+                <div class="kpi">
+                    <h1 class="metricas_kills">Win Rating</h1>
+                    <h2 id="id_win_rating"></h2>
+                </div>
+            </div>
+            <div class="conteudo-historico-alerta">
+                <div class="historico">
+                    <div class="titulo-historico">
+                        <h1>Historico</h1>
+                    </div>
+                    <div class="historico-individual-titulo">
+                        <div class="centralizar-titulo"><span class="informacoes_historico">Status</span></div><span
+                            class="informacoes_historico">Mapa</span><span class="informacoes_historico">Kills
+                        </span><span class="informacoes_historico">Mortes</span>
+                    </div>
+
+
+                </div>
+                <div class="alerta">
+                    <div class="fundo-alerta" id="fundo_titulo_alerta">
+                        <h2 class="mensagem-alerta" id="saudacao_alerta"></h2>
+                    </div>
+                    <div class="imagem-alerta">
+                        <img id="imagem_alerta_icone" src="" alt="">
+                    </div>
+                    <div class="descricao-alerta">
+                        <p id="texto_descricao"></p>
+                    </div>
+                    <div class="historico-alerta">
+                        <p id="texto_embaixo_alerta"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="conteudo-curiosidade">
+                <div class="curiosidades-estatistica">
+                    <div class="bloco-curiosidade">
+                        <div id="img_arma_utiliziada">
+
+                        </div>
+                        <h3>Favorita</h3>
+                        <p id="nome_arma"></p>
+                        <p class="metricas_kills" id="kill_total_com_arma"></p>
+                    </div>
+
+                    <div class="bloco-curiosidade-mapa-melhor" id="mapa_melhor_fundo">
+                        <h3 class="titulo-melhor-mapa">Melhor Mapa</h3>
+                        <p id="nome_mapa_melhor"></p>
+                        <p class="rate_mapa" id="rate_mapa_melhor"></p>
+                    </div>
+
+                    <div class="bloco-curiosidade-mapa-pior" id="mapa_pior_fundo">
+                        <h3 class="titulo-pior-mapa">Pior Mapa</h3>
+                        <p id="nome_mapa_pior"></p>
+                        <p class="rate_mapa" id="rate_mapa_pior"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+<script>
+    validarSessao();
+
+
+    function atualizarDash() {
+        exibirAbates();
+        exibirMortes();
+        buscarPontos();
+        exibirWinRating();
+        exibirKillsPorMapa();
+        exibirArmaMaisUtilizada();
+        exibirMapsWinRating();
+        exibirFrequencia();
+    }
+
+    let kills = 0;
+    let mortes = 0;
+
+
+    function exibirAbates() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/abates/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                kills = json.total_abates;
+                total_abates_player.innerHTML = kills;
+                atualizarKd();
+            })
+        })
+    }
+
+    function exibirMortes() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/mortes/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                mortes = json.total_mortes;
+                total_mortes_player.innerHTML = mortes;
+                atualizarKd();
+            })
+        })
+    }
+
+    function exibirMortes() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/mortes/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                mortes = json.total_mortes;
+                total_mortes_player.innerHTML = mortes;
+                atualizarKd();
+            })
+        })
+    }
+
+    let winRating = 0;
+
+    function exibirWinRating() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/vitorias/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                winRating = json.win_rate;
+                id_win_rating.innerHTML = winRating + '%';
+            })
+        })
+    }
+
+    // Calculo do KD (Kill/Death) Abates por Morte
+    function atualizarKd() {
+        let kd;
+
+        if (mortes > 0) {
+            kd = (kills / mortes).toFixed(2);
+        } else {
+            kd = kills.toFixed(2);
+        }
+
+        kd_player.innerHTML = kd;
+    }
+
+    let patentesOrdem = [
+        '../assets/patente/semRank.png',
+        '../assets/patente/ferro.png',
+        '../assets/patente/bronze.png',
+        '../assets/patente/prata.png',
+        '../assets/patente/ouro.png',
+        '../assets/patente/platina.png',
+        '../assets/patente/diamante.png',
+        '../assets/patente/mestre.png',
+        '../assets/patente/specOps.png',
+        '../assets/patente/eliteOps.png'
+    ];
+
+
+    function buscarPontos() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/pontos/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                console.log(json)
+                let pontos = json[json.length - 1].pontos_atuais;
+                atualizarPontos(pontos);
+            })
+        })
+    }
+
+    function atualizarPontos(pontos) {
+        if (pontos == 0) {
+            nome_patente.innerHTML = `Sem Rank <span style="color: #FFC116">${pontos}</span>`;
+            imagem_patente.innerHTML = '<img src="' + patentesOrdem[0] + '">';
+        } else if (pontos <= 1199) {
+            nome_patente.innerHTML = `Ferro <span style="color: #FFC116">${pontos}</span>`;
+            imagem_patente.innerHTML = '<img src="' + patentesOrdem[1] + '">';
+        } else if (pontos <= 1299) {
+            nome_patente.innerHTML = `Bronze <span style="color: #FFC116">${pontos}</span>`;
+            imagem_patente.innerHTML = '<img src="' + patentesOrdem[2] + '">';
+        } else if (pontos <= 1399) {
+            nome_patente.innerHTML = `Prata <span style="color: #FFC116">${pontos}</span>`;
+            imagem_patente.innerHTML = '<img src="' + patentesOrdem[3] + '">';
+        } else if (pontos <= 1499) {
+            nome_patente.innerHTML = `Ouro <span style="color: #FFC116">${pontos}</span>`;
+            imagem_patente.innerHTML = '<img src="' + patentesOrdem[4] + '">';
+        } else if (pontos <= 1599) {
+            nome_patente.innerHTML = `Platina <span style="color: #FFC116">${pontos}</span>`;
+            imagem_patente.innerHTML = '<img src="' + patentesOrdem[5] + '">';
+        } else if (pontos <= 1699) {
+            nome_patente.innerHTML = `Diamante <span style="color: #FFC116">${pontos}</span>`;
+            imagem_patente.innerHTML = '<img src="' + patentesOrdem[6] + '">';
+        } else if (pontos <= 1899) {
+            nome_patente.innerHTML = `Mestre <span style="color: #FFC116">${pontos}</span>`;
+            imagem_patente.innerHTML = '<img src="' + patentesOrdem[7] + '">';
+        } else if (pontos <= 1999) {
+            nome_patente.innerHTML = `Spec Ops <span style="color: #FFC116">${pontos}</span>`;
+            imagem_patente.innerHTML = '<img src="' + patentesOrdem[8] + '">';
+        } else if (pontos >= 2000) {
+            nome_patente.innerHTML = `Elite Ops <span style="color: #FFC116">${pontos}</span>`;
+            imagem_patente.innerHTML = '<img src="' + patentesOrdem[9] + '">';
+        }
+    }
+
+    function exibirKillsPorMapa() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/killsPorMapa/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                for (let i = 0; i < json.length; i++) {
+                    let linha = json[i];
+                    let status = linha.resultado;
+                    let nome_mapa_historico = linha.mapa_partida;
+                    let total_kills_historico = linha.total_kills;
+                    let total_mortes_historico = linha.total_mortes;
+
+                    let textoStatus = linha.resultado == 0 ? "Derrota" : "Vitoria";
+                    let corFundo = linha.resultado == 0 ? "#d1313d" : "#8bc59b";
+
+                    let lista_historico = document.createElement("div");
+                    lista_historico.classList.add("historico-individual");
+                    lista_historico.innerHTML = `
+                        <div class="fundo_status" style="background-color: ${corFundo}"><span class="informacoes_historico" id="status_resultado"> ${textoStatus}
+                            </span></div><span class="informacoes_historico" id="nome_mapa">${nome_mapa_historico} </span><span
+                            class="informacoes_historico" id="kills_status">${total_kills_historico} </span><span
+                            class="informacoes_historico" id="morte_status">${total_mortes_historico}</span>
+                    `;
+
+                    document.querySelector(".historico").appendChild(lista_historico);
+                }
+            })
+        })
+    }
+
+    function exibirArmaMaisUtilizada() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/armaUtilizada/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                let arma = json[0].tipo_armamento;
+                let kilss_com_arma = json[0].total_utilizada;
+                let imagem_arma = json[0].imagem_url_armamento;
+
+                img_arma_utiliziada.innerHTML = `<img src="${imagem_arma}">`;
+                nome_arma.innerHTML = arma;
+                kill_total_com_arma.innerHTML = `(${kilss_com_arma} kills)`;
+            })
+        })
+    }
+
+    function exibirMapsWinRating() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/mapasWinRating/${idUsuario}`).then(res => {
+            res.json().then(json => {
+
+
+                let fotosRanked = [
+                    "../assets/mapas/bureau.png",
+                    "../assets/mapas/canals.png",
+                    "../assets/mapas/grounded.png",
+                    "../assets/mapas/legacy.png",
+                    "../assets/mapas/raid.png",
+                    "../assets/mapas/plaza.png",
+                    "../assets/mapas/port.png",
+                    "../assets/mapas/soar.png",
+                    "../assets/mapas/village.png"
+                ];
+
+                //Melhor mapa
+                let melhor_mapa = json[0].nome_mapa;
+                let win_rate_melhor = json[0].win_ratign;
+                let indice_mapa = json[0].idMapa;
+                let mapa_foto = fotosRanked[indice_mapa - 1];
+
+                document.getElementById('mapa_melhor_fundo').style.backgroundImage = `url(${mapa_foto})`;
+
+                nome_mapa_melhor.innerHTML = melhor_mapa;
+                rate_mapa_melhor.innerHTML = `${win_rate_melhor}% Win Rate`;
+
+                // Pior Mapa
+                let pior_mapa = json[json.length - 1].nome_mapa;
+                let win_rate_pior = json[json.length - 1].win_ratign;
+                let indice_mapa_pior = json[json.length - 1].idMapa;
+                let mapa_foto_pior = fotosRanked[indice_mapa_pior - 1];
+
+                document.getElementById('mapa_pior_fundo').style.backgroundImage = `url(${mapa_foto_pior})`;
+
+                nome_mapa_pior.innerHTML = pior_mapa;
+                rate_mapa_pior.innerHTML = `${win_rate_pior}% Win Rate`;
+            })
+        })
+    }
+
+    function exibirFrequencia() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/estatisticas/frequencia/${idUsuario}`).then(res => {
+            res.json().then(json => {
+                let utlimo_dia_jogado = json[0].dia_formatado;
+                let quantidade_partidas = json[0].quantidade;
+
+                const hoje = new Date().toLocaleDateString('pt-BR');
+
+                let divAlerta = document.getElementById("fundo_titulo_alerta");
+                let imgSituacao = document.getElementById("imagem_alerta_icone");
+
+                if (utlimo_dia_jogado === hoje) {
+                    if (quantidade_partidas >= 3) {
+                        divAlerta.style.backgroundColor = "#FFC116";
+                        imgSituacao.src = "../assets/dashboard/muitoTempoIcone.png"
+                        saudacao_alerta.innerHTML = `Missão Cumprida por Hoje!`;
+                        texto_descricao.innerHTML = `Você já dominou o servidor hoje, agora é hora de dominar suas obrigações. Lembre-se: o equilíbrio entre o jogo e a vida real é o que faz um pro-player de verdade.`;
+                        texto_embaixo_alerta.innerHTML = `Excedeu o limite diário definido. Pré-Definido: 3, Jogados ${quantidade_partidas}`;
+                    } else {
+                        divAlerta.style.backgroundColor = "#0c0cff";
+                        imgSituacao.src = "../assets/dashboard/liberadoIcone.png"
+                        saudacao_alerta.innerHTML = `Bem vindo de Volta!`;
+                        texto_descricao.innerHTML = `Sentimos sua falta no campo de batalha. Lembre-se: o jogo é um lugar para relaxar e se divertir. Quando estiver pronto, sua posição está guardada!`;
+                        texto_embaixo_alerta.innerHTML = `Última partida jogada no dia ${utlimo_dia_jogado}. Pré-Definido: 3, Jogados ${quantidade_partidas}`;
+                    }
+                } else {
+                    divAlerta.style.backgroundColor = "#0c0cff";
+                    imgSituacao.src = "../assets/dashboard/liberadoIcone.png"
+                    saudacao_alerta.innerHTML = `Bem vindo de Volta!`;
+                    texto_descricao.innerHTML = `Sentimos sua falta no campo de batalha. Lembre-se: o jogo é um lugar para relaxar e se divertir. Quando estiver pronto, sua posição está guardada!`;
+                    texto_embaixo_alerta.innerHTML = `Última partida jogada no dia ${utlimo_dia_jogado}.`;
+                }
+            })
+        })
+    }
+
+
+
+    atualizarDash();
+</script>

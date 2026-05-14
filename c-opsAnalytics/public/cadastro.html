@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro | C-ops</title>
+
+    <!-- CSS da página e da navbar -->
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/cadastro.css">
+
+    <!-- Fontes pega do Google fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navbar com Logo e Link -->
+    <div class="navbar">
+        <img src="assets/home/logo-white.png" alt="" id="logo">
+        <div class="links">
+            <a href="index.html">
+                <span>Inicio</span>
+            </a>
+            <a href="index.html#secao-historia">
+                <span>Sobre o Jogo</span>
+            </a>
+            <a href="index.html#secao-modos">
+                <span>Mapas e Modos</span>
+            </a>
+            <a href="index.html#secao-projeto">
+                <span>Sobre o Projeto</span>
+            </a>
+            <div class="area_jogador">
+                <a href="login.html">
+                    <h3>Área do Jogador</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="conteudo-imagem">
+        <div class="conteudo-login-cadastro">
+            <div class="titulo-cadastro">
+                <div class="fundo-titulo">
+                    <h1 id="texto-cadastro">Cadastrar</h1>
+                </div>
+            </div>
+            <div class="campos-leitura">
+                <div class="inputs-cadastro">
+                    <p class="texto-cadastro">Nickname:</p>
+                    <input type="text" id="ipt_nick">
+                    <p class="texto-cadastro">ID-PLayer:</p>
+                    <input type="text" id="ipt_idPLayer">
+                    <p class="texto-cadastro">Quantidade de Pontos:</p>
+                    <input type="text" id="ipt_qtPonto">
+                    <p class="texto-cadastro">Email:</p>
+                    <input type="email" id="ipt_email">
+                    <p class="texto-cadastro">Senha:</p>
+                    <input type="password" id="ipt_senha">
+                    <p class="texto-cadastro">Repita a Senha:</p>
+                    <input type="password" id="ipt_senhaRepetida">
+                </div>
+            </div>
+            <div class="links-butao">
+                <button class="buttao-funcao-cadastrar" onclick="cadastrar()">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+    function cadastrar() {
+        let nick = ipt_nick.value;
+        let idPLayer = ipt_idPLayer.value;
+        let qtPonto = Number(ipt_qtPonto.value);
+        let email = ipt_email.value;
+        let senha = ipt_senha.value;
+        let senhaRepetida = ipt_senhaRepetida.value;
+
+        if (nick == "" || idPLayer == "" || qtPonto == "" || email == "" || senha == "" || senhaRepetida == "") {
+            alert("Erro: Preencha todos os campos para prosseguir.");
+            return false;
+        } else {
+
+            if (idPLayer < 0 || idPLayer.length < 8) {
+                alert("Erro: Insira o idPlayer corretamente! com apenas 8 caracteres!");
+                return false;
+            } else if (qtPonto.length < 0) {
+                alert("Erro: Quantidade de pontos, não pode ser negativa, somente de 0 para cima!");
+                return false;
+            } else if (senha != senhaRepetida) {
+                alert("Erro: A senhas deve ser iguais!");
+                return false;
+            }
+
+            let indice_arroba = -1;
+            let indice_ponto = -1;
+            for (let i = 0; i < email.length; i++) {
+                if (email[i] == "@") {
+                    indice_arroba = i;
+                }
+                if (email[i] == ".") {
+                    indice_ponto = i;
+                }
+            }
+
+            if (indice_arroba <= 0 || indice_ponto <= indice_arroba + 1 || indice_ponto == email.length - 1) {
+                alert("Erro: Insira o valor do email corretamente! Exemplo(senhor@gmail.com)");
+                return false;
+            }
+
+
+            fetch("/usuarios/cadastrar", {
+                method: "POST", 
+                headers: {
+                    "Content-Type": "application/json", 
+                },
+                body: JSON.stringify({
+                    nickServer: nick,
+                    idPlayerServer: idPLayer,
+                    pontosServer: qtPonto,
+                    emailServer: email,
+                    senhaServer: senha
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("RESPOSTA: ", resposta);
+
+                    if (resposta.ok) {
+                        alert("Cadastro realizado com sucesso! Redirecionando para login...");
+                        setTimeout(() => {
+                            window.location = "login.html";
+                        }, "2000");
+                    } else {
+                        resposta.text().then(texto => {
+                            console.error(texto);
+                            alert("Erro no cadastro: " + texto);
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.log("#ERRO: ", erro);
+                });
+
+            return false;
+        }
+    }
+
+</script>
