@@ -105,7 +105,7 @@ function buscarFrequencia(idUsuario) {
 
     var instrucaoSql = `
     SELECT DATE_FORMAT(data_partida, '%d/%m/%Y') AS dia_formatado, COUNT(*) AS quantidade FROM partida
-        WHERE fk_usuario = 1 GROUP BY dia_formatado ORDER BY MAX(data_partida) DESC LIMIT 1;
+        WHERE fk_usuario = ${idUsuario} GROUP BY dia_formatado ORDER BY MAX(data_partida) DESC LIMIT 1;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
