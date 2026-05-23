@@ -2,7 +2,6 @@ var partidaModel = require("../models/partidaModel");
 
 function dadosPartida(req, res) {
     var data_partida = req.body.data_partidaServer;
-    var duracao = req.body.duracaoServer;
     var roundsTR = req.body.roundsTRServer;
     var roundsCT = req.body.roundsCTServer;
     var qtPontos = req.body.qtPontosServer;
@@ -11,9 +10,7 @@ function dadosPartida(req, res) {
     var mapa = req.body.mapaServer;
 
 
-    if (duracao == undefined) {
-        res.status(400).send("A duração está undefined!");
-    } else if (roundsTR == undefined) {
+   if (roundsTR == undefined) {
         res.status(400).send("A quantidade de rounds de TR está undefined!");
     } else if (roundsCT == undefined) {
         res.status(400).send("A quantidade de rounds de CT está undefined!");
@@ -25,7 +22,7 @@ function dadosPartida(req, res) {
         res.status(400).send("O ID do usuário está undefined!");
     } else {
 
-        partidaModel.cadastrarPartida(data_partida, duracao, roundsTR, roundsCT, qtPontos, resultado, usuario, mapa)
+        partidaModel.cadastrarPartida(data_partida, roundsTR, roundsCT, qtPontos, resultado, usuario, mapa)
             .then((resultadoBanco) => {
                 res.status(200).json(resultadoBanco);
             })

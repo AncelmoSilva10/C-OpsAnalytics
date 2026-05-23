@@ -55,7 +55,7 @@
                     <p class="texto-login">Email:</p>
                     <input type="text" id="ipt_email">
                     <p class="texto-login">Senha:</p>
-                    <input type="text" id="ipt_senha">
+                    <input type="password" id="ipt_senha">
                 </div>
             </div>
             <div class="links-butao">
@@ -105,6 +105,7 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NICK_USUARIO = json.nickname;
                     sessionStorage.ID_USUARIO = json.idUsuario;
+                    sessionStorage.PONTOS_INICIAIS = json.pontos_iniciais;
 
                     window.location = "/dashboard/dashboard.html";
 
@@ -113,6 +114,7 @@
             } else {
 
                 console.log("Houve um erro ao tentar realizar o login!");
+                alert("Credências inválidas, verifique, e tente novamente!");
 
                 resposta.text().then(texto => {
                     console.error(texto);

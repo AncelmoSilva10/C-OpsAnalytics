@@ -109,7 +109,7 @@
                         <img id="imagem_alerta_icone" src="" alt="">
                     </div>
                     <div class="descricao-alerta">
-                        <p id="texto_descricao"></p>
+                        <p id="texto_descricao">Simule a sua primeira partida!</p>
                     </div>
                     <div class="historico-alerta">
                         <p id="texto_embaixo_alerta"></p>
@@ -206,7 +206,12 @@
         fetch(`/estatisticas/vitorias/${idUsuario}`).then(res => {
             res.json().then(json => {
                 winRating = json.win_rate;
-                id_win_rating.innerHTML = winRating + '%';
+                if (winRating == null) {
+                    id_win_rating.innerHTML = "Você ainda não jogou.";
+                } else {
+                    id_win_rating.innerHTML = winRating + '%';
+                }
+
             })
         })
     }
@@ -242,7 +247,7 @@
         var idUsuario = sessionStorage.ID_USUARIO;
         fetch(`/estatisticas/pontos/${idUsuario}`).then(res => {
             res.json().then(json => {
-                console.log(json)
+                console.log(json.length)
                 let pontos = json[json.length - 1].pontos_atuais;
                 atualizarPontos(pontos);
             })

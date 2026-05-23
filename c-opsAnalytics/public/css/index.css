@@ -257,6 +257,13 @@ video {
     font-size: medium;
 }
 
+#maps:hover{
+    cursor: pointer; 
+    scale: 1.05; 
+    box-shadow: 0px 6px 8px #58A6FF; 
+    transition: all 250ms; 
+}
+
 
 /* Minha história no jogo */
 .minha-historia {

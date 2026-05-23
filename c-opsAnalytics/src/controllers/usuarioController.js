@@ -24,6 +24,7 @@ function autenticar(req, res) {
                             nickname: resultadoAutenticar[0].nickname,
                             id_player: resultadoAutenticar[0].id_player,
                             email: resultadoAutenticar[0].email,
+                            pontos_iniciais: resultadoAutenticar[0].qt_pontos,
                         });
 
                     } else if (resultadoAutenticar.length == 0) {

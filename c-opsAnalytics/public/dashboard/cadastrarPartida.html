@@ -84,9 +84,6 @@
                         <p class="texto-cadastro">Data da Partida:</p>
                         <input type="text" id="ipt_dataPartida" placeholder="AAAA-MM-DD">
 
-                        <p class="texto-cadastro">Duração média (Minutos):</p>
-                        <input type="text" id="ipt_duracaoMedia">
-
                         <p class="texto-cadastro">Rounds TR:</p>
                         <input type="number" id="ipt_roundTR">
 
@@ -137,9 +134,6 @@
                             <option value="Terrorista">Terrorista</option>
                             <option value="Contraterrorista">Contraterrorista</option>
                         </select>
-
-                        <p class="texto-cadastro">Duração (segundos):</p>
-                        <input type="number" id="ipt_duracao_round">
 
                         <h2 class="texto-evento">Registrar Evento</h2>
 
@@ -194,7 +188,6 @@
 
         function cadastrarPartida() {
             let data_partida = ipt_dataPartida.value;
-            let duracao = ipt_duracaoMedia.value;
             let roundsTR = ipt_roundTR.value;
             let roundsCT = ipt_roundCT.value;
             let pontos = ipt_pontos.value;
@@ -202,7 +195,7 @@
             let resultadoRaw = ipt_resultado.value;
             let usuario = sessionStorage.ID_USUARIO;
 
-            if (duracao == "" || roundsTR == "" || roundsCT == "" || pontos == "" || mapaRaw == "" || resultadoRaw == "") {
+            if (roundsTR == "" || roundsCT == "" || pontos == "" || mapaRaw == "" || resultadoRaw == "") {
                 alert("Preencha todos os campos para cadastrar!");
                 return;
             }
@@ -223,7 +216,6 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     data_partidaServer: data_partida || null,
-                    duracaoServer: Number(duracao),
                     roundsTRServer: rTR,
                     roundsCTServer: rCT,
                     qtPontosServer: nPontos,
@@ -359,13 +351,12 @@
 
         function cadastrarRound() {
             let vitoria = ipt_vitoria.value;
-            let duracao = ipt_duracao_round.value;
             let arma = ipt_armaUtilizada.value;
 
             // Pego o ID do mapa selecionado na primeira tela para o cálculo
             let idMapaSelecionado = Number(ipt_mapa.value);
 
-            if (duracao == "" || vitoria == "") {
+            if (vitoria == "") {
                 alert("Preencha os dados do round!");
                 return;
             }
@@ -376,7 +367,6 @@
                 body: JSON.stringify({
                     numeroRoundServer: numeroRoundAtual,
                     vitoriaServer: vitoria,
-                    duracaoServer: Number(duracao),
                     partidaServer: idPartida
                 })
             }).then(res => res.json()).then(json => {
