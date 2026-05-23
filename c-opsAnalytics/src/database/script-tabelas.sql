@@ -12,7 +12,7 @@ CREATE TABLE mapa (
 CREATE TABLE usuario (
   idusuario INT AUTO_INCREMENT PRIMARY KEY,
   nickname VARCHAR(100) NOT NULL,
-  id_player INT,
+  id_player INT UNIQUE,
   qt_pontos INT DEFAULT 0,
   email VARCHAR(100) NOT NULL,
   senha VARCHAR(100) NOT NULL
@@ -38,7 +38,6 @@ CREATE TABLE sesao_mapa (
 CREATE TABLE partida (
   idpartida INT AUTO_INCREMENT PRIMARY KEY,
   data_partida DATETIME DEFAULT CURRENT_TIMESTAMP,
-  duracao_media INT,
   rounds_TR INT DEFAULT 0,
   rounds_CT INT DEFAULT 0,
   qt_pontos INT NOT NULL,
@@ -46,7 +45,6 @@ CREATE TABLE partida (
   CONSTRAINT fk_partida_result CHECK(resultado IN (1,0)),
   fk_usuario INT NOT NULL,
   fk_mapa INT NOT NULL,
-
   CONSTRAINT fk_partida_user FOREIGN KEY (fk_usuario) REFERENCES usuario (idusuario),
   CONSTRAINT fk_partida_map FOREIGN KEY (fk_mapa) REFERENCES mapa (idmapa)
 );
@@ -56,9 +54,7 @@ CREATE TABLE round (
   idround INT AUTO_INCREMENT PRIMARY KEY,
   numero_round INT NOT NULL,
   vitoria_equipe VARCHAR(45),
-  tempo_duracao INT,
   fk_partida INT NOT NULL,
-
   CONSTRAINT fk_round_part FOREIGN KEY (fk_partida) REFERENCES partida (idpartida)
 );
 
@@ -211,3 +207,4 @@ INSERT INTO sesao_mapa (nome_sesao, fk_mapa) VALUES
 		('SMG - Breach (MP7)', '../assets/armamento/mp7.png'),
 		('Sniper - Universal (Uratio)', '../assets/armamento/uratio.png'),
 		('Corpo a Corpo - Universal (Knife)', '../assets/armamento/knife.png');   
+
