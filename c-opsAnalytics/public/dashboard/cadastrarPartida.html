@@ -82,7 +82,7 @@
                 <div class="campos-leitura">
                     <div class="inputs-cadastro">
                         <p class="texto-cadastro">Data da Partida:</p>
-                        <input type="text" id="ipt_dataPartida" placeholder="AAAA-MM-DD">
+                        <input type="date" id="ipt_dataPartida" placeholder="AAAA-MM-DD">
 
                         <p class="texto-cadastro">Rounds TR:</p>
                         <input type="number" id="ipt_roundTR">
@@ -197,6 +197,12 @@
 
             if (roundsTR == "" || roundsCT == "" || pontos == "" || mapaRaw == "" || resultadoRaw == "") {
                 alert("Preencha todos os campos para cadastrar!");
+                return;
+            }
+
+            let data_atual = new Date();
+            if(data_partida > data_atual.toLocaleDateString("en-ca")){
+                alert("Não é possível cadastrar uma partida superior ao dia atual!")
                 return;
             }
 
